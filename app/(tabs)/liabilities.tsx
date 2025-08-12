@@ -1,6 +1,6 @@
-import React,{useEffect} from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar } from 'react-native';
-import { Stack,router } from 'expo-router';
+import { Stack } from 'expo-router';
 import { Car, Home, CreditCard, User } from 'lucide-react-native';
 import { useTheme } from '@/contexts/ThemeContext';
 
@@ -57,11 +57,145 @@ const unsecuredLoans: LiabilityItem[] = [
 ];
 
 export default function LiabilitiesScreen() {
-  useEffect(() => {
-    router.replace('/liabilities/index');
-  }, []);
+  const { theme } = useTheme();
+alert("coming");
+  return (
+    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
 
-  return null;
+      <StatusBar barStyle={theme.name === 'Dark Professional' ? 'light-content' : 'dark-content'} backgroundColor={theme.colors.background} />
+      
+      <View style={[styles.summaryCard, { backgroundColor: theme.colors.surface }]}>
+        <Text style={[styles.summaryLabel, { color: theme.colors.textSecondary }]}>Total Liabilities</Text>
+        <Text style={[styles.summaryValue, { color: theme.colors.text }]}>₹13,70,000</Text>
+        <View style={styles.summaryRow}>
+          <View style={styles.summaryItem}>
+            <Text style={[styles.summarySubLabel, { color: theme.colors.textSecondary }]}>Secured</Text>
+            <Text style={[styles.summarySubValue, { color: theme.colors.text }]}>₹11,75,000</Text>
+          </View>
+          <View style={styles.summaryItem}>
+            <Text style={[styles.summarySubLabel, { color: theme.colors.textSecondary }]}>Unsecured</Text>
+            <Text style={[styles.summarySubValue, { color: theme.colors.text }]}>₹1,95,000</Text>
+          </View>
+        </View>
+      </View>
+
+      <ScrollView 
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        {/* Secured Loans Section */}
+        <View style={styles.sectionHeader}>
+          <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Secured Loans</Text>
+          <Text style={[styles.sectionSubtitle, { color: theme.colors.textSecondary }]}>Loans backed by collateral</Text>
+        </View>
+        
+        {securedLoans.map((item) => {
+          const IconComponent = item.icon;
+          return (
+            <TouchableOpacity
+              key={item.id}
+              style={[styles.liabilityItem, { backgroundColor: theme.colors.surface }]}
+              testID={`liability-${item.id}`}
+            >
+              <View style={styles.liabilityItemLeft}>
+                <View style={[styles.liabilityIcon, { backgroundColor: theme.colors.success + '15' }]}>
+                  <IconComponent size={24} color={theme.colors.success} />
+                </View>
+                <View style={styles.liabilityInfo}>
+                  <Text style={[styles.liabilityName, { color: theme.colors.text }]}>
+                    {item.name}
+                  </Text>
+                  <Text style={[styles.liabilityEmi, { color: theme.colors.textSecondary }]}>
+                    {item.emi}
+                  </Text>
+                  <Text style={[styles.liabilityTenure, { color: theme.colors.textSecondary }]}>
+                    {item.tenure} • {item.interestRate}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.liabilityItemRight}>
+                <Text style={[styles.liabilityValue, { color: theme.colors.text }]}>
+                  {item.value}
+                </Text>
+                <View style={[styles.liabilityChangeChip, { backgroundColor: theme.colors.success + '15' }]}>
+                  <Text style={[
+                    styles.liabilityChange, 
+                    { color: theme.colors.success }
+                  ]}>
+                    Secured
+                  </Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          );
+        })}
+        
+        {/* Unsecured Loans Section */}
+        <View style={[styles.sectionHeader, { marginTop: 32 }]}>
+          <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Unsecured Loans</Text>
+          <Text style={[styles.sectionSubtitle, { color: theme.colors.textSecondary }]}>Loans without collateral</Text>
+        </View>
+        
+        {unsecuredLoans.map((item) => {
+          const IconComponent = item.icon;
+          return (
+            <TouchableOpacity
+              key={item.id}
+              style={[styles.liabilityItem, { backgroundColor: theme.colors.surface }]}
+              testID={`liability-${item.id}`}
+            >
+              <View style={styles.liabilityItemLeft}>
+                <View style={[styles.liabilityIcon, { backgroundColor: theme.colors.warning + '15' }]}>
+                  <IconComponent size={24} color={theme.colors.warning} />
+                </View>
+                <View style={styles.liabilityInfo}>
+                  <Text style={[styles.liabilityName, { color: theme.colors.text }]}>
+                    {item.name}
+                  </Text>
+                  <Text style={[styles.liabilityEmi, { color: theme.colors.textSecondary }]}>
+                    {item.emi}
+                  </Text>
+                  <Text style={[styles.liabilityTenure, { color: theme.colors.textSecondary }]}>
+                    {item.tenure} • {item.interestRate}
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.liabilityItemRight}>
+                <Text style={[styles.liabilityValue, { color: theme.colors.text }]}>
+                  {item.value}
+                </Text>
+                <View style={[styles.liabilityChangeChip, { backgroundColor: theme.colors.warning + '15' }]}>
+                  <Text style={[
+                    styles.liabilityChange, 
+                    { color: theme.colors.warning }
+                  ]}>
+                    Unsecured
+                  </Text>
+                </View>
+              </View>
+            </TouchableOpacity>
+          );
+        })}
+        
+        <View style={[styles.infoCard, { backgroundColor: theme.colors.surface }]}>
+          <Text style={[styles.infoTitle, { color: theme.colors.text }]}>Loan Management Tips</Text>
+          <Text style={[styles.infoDescription, { color: theme.colors.textSecondary }]}>
+            • Prioritize paying off unsecured loans first due to higher interest rates{"\n"}
+            • Consider prepaying secured loans to save on interest{"\n"}
+            • Maintain a good credit score for better loan terms
+          </Text>
+        </View>
+        
+        <View style={[styles.tipCard, { backgroundColor: theme.colors.primary + '10' }]}>
+          <Text style={[styles.tipTitle, { color: theme.colors.primary }]}>💡 Smart Strategy</Text>
+          <Text style={[styles.tipDescription, { color: theme.colors.text }]}>
+            Focus on clearing high-interest unsecured debts first while maintaining minimum payments on secured loans.
+          </Text>
+        </View>
+      </ScrollView>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
