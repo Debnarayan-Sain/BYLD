@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar } from 'react-native';
 import { Stack } from 'expo-router';
-import { Shield } from 'lucide-react-native';
+import { Shield, Heart, Umbrella, PiggyBank, TrendingUp, Home, Car, Briefcase, DollarSign } from 'lucide-react-native';
 import { useTheme } from '@/contexts/ThemeContext';
 
 interface SecurityItem {
@@ -14,7 +14,14 @@ interface SecurityItem {
 }
 
 const securityItems: SecurityItem[] = [
-  { id: 'insurance', name: 'Insurance', icon: Shield, value: '₹8,50,000', change: '+0%', isPositive: true },
+  { id: 'life-insurance', name: 'Life Insurance', icon: Heart, value: '₹25,00,000', change: 'Active', isPositive: true },
+  { id: 'health-insurance', name: 'Health Insurance', icon: Shield, value: '₹10,00,000', change: 'Active', isPositive: true },
+  { id: 'general-insurance', name: 'General Insurance', icon: Umbrella, value: '₹15,00,000', change: 'Active', isPositive: true },
+  { id: 'emergency-fund', name: 'Emergency Fund', icon: PiggyBank, value: '₹5,00,000', change: '+2.5%', isPositive: true },
+  { id: 'pension-fund', name: 'Pension Fund', icon: TrendingUp, value: '₹12,50,000', change: '+8.2%', isPositive: true },
+  { id: 'home-insurance', name: 'Home Insurance', icon: Home, value: '₹50,00,000', change: 'Active', isPositive: true },
+  { id: 'vehicle-insurance', name: 'Vehicle Insurance', icon: Car, value: '₹8,00,000', change: 'Active', isPositive: true },
+  { id: 'professional-insurance', name: 'Professional Insurance', icon: Briefcase, value: '₹20,00,000', change: 'Active', isPositive: true },
 ];
 
 export default function SecurityScreen() {
@@ -34,8 +41,8 @@ export default function SecurityScreen() {
       
       <View style={[styles.summaryCard, { backgroundColor: theme.colors.surface }]}>
         <Text style={[styles.summaryLabel, { color: theme.colors.textSecondary }]}>Total Security</Text>
-        <Text style={[styles.summaryValue, { color: theme.colors.text }]}>₹8,50,000</Text>
-        <Text style={[styles.summaryChange, { color: theme.colors.success }]}>Stable coverage</Text>
+        <Text style={[styles.summaryValue, { color: theme.colors.text }]}>₹1,45,50,000</Text>
+        <Text style={[styles.summaryChange, { color: theme.colors.success }]}>Comprehensive coverage</Text>
       </View>
 
       <ScrollView 
@@ -62,7 +69,7 @@ export default function SecurityScreen() {
                   <View style={styles.securityMeta}>
                     <View style={[styles.statusDot, { backgroundColor: item.isPositive ? theme.colors.success : theme.colors.error }]} />
                     <Text style={[styles.securityStatus, { color: theme.colors.textSecondary }]}>
-                      Active Coverage
+                      {item.change.includes('%') ? 'Growing' : 'Active Coverage'}
                     </Text>
                   </View>
                 </View>
@@ -76,7 +83,7 @@ export default function SecurityScreen() {
                     styles.securityChange, 
                     { color: theme.colors.success }
                   ]}>
-                    Protected
+                    {item.change}
                   </Text>
                 </View>
               </View>
@@ -84,10 +91,33 @@ export default function SecurityScreen() {
           );
         })}
         
-        <View style={[styles.infoCard, { backgroundColor: theme.colors.surface }]}>
-          <Text style={[styles.infoTitle, { color: theme.colors.text }]}>Insurance Coverage</Text>
-          <Text style={[styles.infoDescription, { color: theme.colors.textSecondary }]}>
-            Your insurance policies provide comprehensive coverage for life, health, and property protection.
+        <View style={[styles.categorySection, { backgroundColor: theme.colors.surface }]}>
+          <View style={styles.categoryHeader}>
+            <Shield size={20} color={theme.colors.primary} />
+            <Text style={[styles.categoryTitle, { color: theme.colors.text }]}>Insurance Policies</Text>
+          </View>
+          <Text style={[styles.categoryDescription, { color: theme.colors.textSecondary }]}>
+            Life, Health, and General insurance policies providing comprehensive protection.
+          </Text>
+        </View>
+
+        <View style={[styles.categorySection, { backgroundColor: theme.colors.surface }]}>
+          <View style={styles.categoryHeader}>
+            <DollarSign size={20} color={theme.colors.primary} />
+            <Text style={[styles.categoryTitle, { color: theme.colors.text }]}>Financial Security</Text>
+          </View>
+          <Text style={[styles.categoryDescription, { color: theme.colors.textSecondary }]}>
+            Emergency funds and pension investments for long-term financial security.
+          </Text>
+        </View>
+
+        <View style={[styles.categorySection, { backgroundColor: theme.colors.surface }]}>
+          <View style={styles.categoryHeader}>
+            <Home size={20} color={theme.colors.primary} />
+            <Text style={[styles.categoryTitle, { color: theme.colors.text }]}>Asset Protection</Text>
+          </View>
+          <Text style={[styles.categoryDescription, { color: theme.colors.textSecondary }]}>
+            Insurance coverage for your valuable assets including home, vehicles, and professional equipment.
           </Text>
         </View>
       </ScrollView>
@@ -196,7 +226,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     marginRight: 6,
   },
-  infoCard: {
+  categorySection: {
     padding: 16,
     borderRadius: 12,
     marginTop: 16,
@@ -206,12 +236,17 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 2,
   },
-  infoTitle: {
-    fontSize: 16,
-    fontWeight: '600',
+  categoryHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
     marginBottom: 8,
   },
-  infoDescription: {
+  categoryTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginLeft: 8,
+  },
+  categoryDescription: {
     fontSize: 14,
     lineHeight: 20,
   },
