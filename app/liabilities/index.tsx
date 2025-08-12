@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar } from 'react-native';
-import { Stack } from 'expo-router';
+
 import { Car, Home, CreditCard, User } from 'lucide-react-native';
 import { useTheme } from '@/contexts/ThemeContext';
 
@@ -61,14 +61,7 @@ export default function LiabilitiesScreen() {
 
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
-      <Stack.Screen 
-        options={{
-          title: 'Liabilities',
-          headerStyle: { backgroundColor: theme.colors.surface },
-          headerTintColor: theme.colors.text,
-          headerTitleStyle: { fontWeight: 'bold' }
-        }} 
-      />
+
       <StatusBar barStyle={theme.name === 'dark' ? 'light-content' : 'dark-content'} backgroundColor={theme.colors.background} />
       
       <View style={[styles.summaryCard, { backgroundColor: theme.colors.surface }]}>
