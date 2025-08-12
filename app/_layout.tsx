@@ -24,7 +24,7 @@ function RootLayoutNav() {
       <Stack.Screen name="assets/index" options={{ headerShown: true }} />
       <Stack.Screen name="assets/bank-accounts" options={{ headerShown: true }} />
       <Stack.Screen name="liabilities/index" options={{ headerShown: true, title: "Liabilities" }} />
-      <Stack.Screen name="security/index" options={{ headerShown: false }} />
+      <Stack.Screen name="security/index" options={{ headerShown: true }} />
       <Stack.Screen name="+not-found" options={{ headerShown: true }} />
     </Stack>
   );
