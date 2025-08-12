@@ -94,8 +94,8 @@ export default function SplashScreen({ onFinish }: SplashScreenProps) {
     <View style={styles.container}>
       <LinearGradient
         colors={isDark ? 
-          ['#0f172a', '#1e293b', '#334155'] : 
-          ['#1a1a2e', '#16213e', '#0f3460']
+          ['#0f0f23', '#1a1a2e', '#16213e'] : 
+          ['#667eea', '#764ba2', '#f093fb']
         }
         style={styles.gradient}
       >
@@ -129,7 +129,7 @@ export default function SplashScreen({ onFinish }: SplashScreenProps) {
               },
             ]}
           >
-            <TrendingUp size={24} color={theme.colors.background + '40'} />
+            <TrendingUp size={24} color={isDark ? '#ffffff40' : '#ffffff60'} />
           </Animated.View>
           
           <Animated.View 
@@ -149,7 +149,7 @@ export default function SplashScreen({ onFinish }: SplashScreenProps) {
               },
             ]}
           >
-            <Shield size={20} color={theme.colors.background + '30'} />
+            <Shield size={20} color={isDark ? '#ffffff30' : '#ffffff50'} />
           </Animated.View>
           
           <Animated.View 
@@ -169,7 +169,7 @@ export default function SplashScreen({ onFinish }: SplashScreenProps) {
               },
             ]}
           >
-            <DollarSign size={28} color={theme.colors.background + '35'} />
+            <DollarSign size={28} color={isDark ? '#ffffff35' : '#ffffff55'} />
           </Animated.View>
 
           {/* Main Logo */}
@@ -177,20 +177,20 @@ export default function SplashScreen({ onFinish }: SplashScreenProps) {
             style={[
               styles.logoContainer,
               { 
-                borderColor: theme.colors.background,
+                borderColor: '#ffffff',
                 transform: [{ scale: pulseAnim }],
               },
             ]}
           >
-            <Text style={[styles.logo, { color: theme.colors.background }]}>BYLD</Text>
-            <View style={[styles.logoAccent, { backgroundColor: theme.colors.background }]} />
+            <Text style={[styles.logo, { color: '#ffffff' }]}>BYLD</Text>
+            <View style={[styles.logoAccent, { backgroundColor: '#ffffff' }]} />
           </Animated.View>
           
-          <Text style={[styles.tagline, { color: theme.colors.background }]}>
+          <Text style={[styles.tagline, { color: '#ffffff' }]}>
             Portfolio Management
           </Text>
           
-          <Text style={[styles.subtitle, { color: theme.colors.background + 'CC' }]}>
+          <Text style={[styles.subtitle, { color: '#ffffffCC' }]}>
             Build Your Legacy Daily
           </Text>
         </Animated.View>

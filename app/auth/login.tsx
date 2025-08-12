@@ -69,8 +69,8 @@ export default function LoginScreen() {
     <View style={styles.container}>
       <LinearGradient
         colors={isDark ? 
-          ['#0f172a', '#1e293b', '#334155'] : 
-          ['#1a1a2e', '#16213e', '#0f3460']
+          ['#0f0f23', '#1a1a2e', '#16213e'] : 
+          ['#667eea', '#764ba2', '#f093fb']
         }
         style={styles.backgroundGradient}
         start={{ x: 0, y: 0 }}
@@ -102,7 +102,7 @@ export default function LoginScreen() {
             >
               <View style={styles.logoContainer}>
                 <LinearGradient
-                  colors={['#4facfe', '#00f2fe']}
+                  colors={isDark ? ['#667eea', '#764ba2'] : ['#f093fb', '#f5576c']}
                   style={styles.logoCircle}
                   start={{ x: 0, y: 0 }}
                   end={{ x: 1, y: 1 }}
@@ -309,14 +309,14 @@ const styles = StyleSheet.create({
   circle1: {
     width: 200,
     height: 200,
-    backgroundColor: '#4facfe',
+    backgroundColor: '#667eea',
     top: -100,
     right: -100,
   },
   circle2: {
     width: 150,
     height: 150,
-    backgroundColor: '#00f2fe',
+    backgroundColor: '#f093fb',
     bottom: 100,
     left: -75,
   },
@@ -349,7 +349,7 @@ const styles = StyleSheet.create({
     borderRadius: 35,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#4facfe',
+    shadowColor: '#f093fb',
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.4,
     shadowRadius: 20,
@@ -381,7 +381,7 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: '#4facfe',
+    backgroundColor: '#f093fb',
   },
   loginCard: {
     borderRadius: 20,
@@ -436,7 +436,7 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 8,
-    backgroundColor: 'rgba(79,172,254,0.1)',
+    backgroundColor: 'rgba(240,147,251,0.1)',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 10,
@@ -464,7 +464,7 @@ const styles = StyleSheet.create({
   loginButton: {
     marginBottom: 16,
     borderRadius: 12,
-    shadowColor: '#4facfe',
+    shadowColor: '#f093fb',
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.25,
     shadowRadius: 12,
@@ -531,7 +531,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 16,
-    shadowColor: '#4facfe',
+    shadowColor: '#f093fb',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 8,

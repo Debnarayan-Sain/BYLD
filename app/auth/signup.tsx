@@ -106,8 +106,8 @@ export default function SignupScreen() {
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <LinearGradient
         colors={isDark ? 
-          ['#0f172a', '#1e293b', '#334155'] : 
-          ['#1a1a2e', '#16213e', '#0f3460']
+          ['#0f0f23', '#1a1a2e', '#16213e'] : 
+          ['#667eea', '#764ba2', '#f093fb']
         }
         style={styles.backgroundGradient}
         start={{ x: 0, y: 0 }}
