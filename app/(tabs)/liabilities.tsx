@@ -58,7 +58,7 @@ const unsecuredLoans: LiabilityItem[] = [
 
 export default function LiabilitiesScreen() {
   const { theme } = useTheme();
-
+alert("coming");
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
 
