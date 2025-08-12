@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated, Linking, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Animated, Linking, Dimensions } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
@@ -84,7 +84,7 @@ export default function LoginScreen() {
         </View>
         
         <SafeAreaView style={styles.safeArea}>
-          <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
+          <View style={styles.content}>
             {/* Logo Section */}
             <Animated.View
               style={[
@@ -107,7 +107,7 @@ export default function LoginScreen() {
                   start={{ x: 0, y: 0 }}
                   end={{ x: 1, y: 1 }}
                 >
-                  <TrendingUp size={28} color="#ffffff" strokeWidth={2.5} />
+                  <TrendingUp size={24} color="#ffffff" strokeWidth={2.5} />
                 </LinearGradient>
               </View>
               <Text style={[styles.brandTitle, { color: theme.colors.text }]}>BYLD</Text>
@@ -136,12 +136,7 @@ export default function LoginScreen() {
                 ]}
                 style={styles.cardGradient}
               >
-                <View style={styles.cardHeader}>
-                  <Text style={[styles.cardTitle, { color: theme.colors.text }]}>Welcome Back</Text>
-                  <Text style={[styles.cardSubtitle, { color: theme.colors.textSecondary }]}>
-                    Sign in to your portfolio
-                  </Text>
-                </View>
+
 
                 <View style={styles.formContainer}>
                   {/* Mobile Input */}
@@ -280,7 +275,7 @@ export default function LoginScreen() {
                 <Text style={[styles.termsText, { color: theme.colors.textSecondary }]}>Terms & Conditions</Text>
               </TouchableOpacity>
             </Animated.View>
-          </ScrollView>
+          </View>
         </SafeAreaView>
       </LinearGradient>
     </View>
@@ -327,23 +322,23 @@ const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
   },
-  scrollContent: {
-    flexGrow: 1,
+  content: {
+    flex: 1,
     paddingHorizontal: 24,
-    paddingBottom: 30,
+    justifyContent: 'space-between',
   },
   logoSection: {
     alignItems: 'center',
-    paddingTop: 30,
-    paddingBottom: 20,
+    paddingTop: 20,
+    paddingBottom: 16,
   },
   logoContainer: {
     marginBottom: 12,
   },
   logoCircle: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#f093fb',
@@ -353,7 +348,7 @@ const styles = StyleSheet.create({
     elevation: 15,
   },
   brandTitle: {
-    fontSize: 36,
+    fontSize: 32,
     fontWeight: '900',
     marginBottom: 4,
     letterSpacing: 3,
@@ -407,6 +402,7 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     paddingHorizontal: 20,
+    paddingTop: 20,
     paddingBottom: 20,
   },
   inputGroup: {
@@ -500,7 +496,8 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   bottomSection: {
-    paddingTop: 24,
+    paddingTop: 16,
+    paddingBottom: 20,
     alignItems: 'center',
   },
   calculatorButton: {
