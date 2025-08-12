@@ -106,8 +106,8 @@ export default function SignupScreen() {
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <LinearGradient
         colors={isDark ? 
-          ['#0f0f23', '#1a1a2e', '#16213e'] : 
-          ['#667eea', '#764ba2', '#f093fb']
+          [theme.colors.background, theme.colors.surface, theme.colors.primary + '20'] : 
+          [theme.colors.background, theme.colors.surface, theme.colors.primary + '15']
         }
         style={styles.backgroundGradient}
         start={{ x: 0, y: 0 }}
@@ -117,9 +117,9 @@ export default function SignupScreen() {
           {/* Header */}
           <View style={styles.header}>
             <TouchableOpacity onPress={handleBack} style={styles.backButton}>
-              <ArrowLeft size={24} color="#ffffff" />
+              <ArrowLeft size={24} color={theme.colors.text} />
             </TouchableOpacity>
-            <Text style={styles.headerTitle}>Create Account</Text>
+            <Text style={[styles.headerTitle, { color: theme.colors.text }]}>Create Account</Text>
             <View style={styles.placeholder} />
           </View>
 
@@ -171,10 +171,10 @@ export default function SignupScreen() {
                   <View style={styles.inputContainer}>
                     <View style={[styles.phoneInputContainer, { 
                       borderColor: theme.colors.border,
-                      backgroundColor: isDark ? 'rgba(51,65,85,0.3)' : '#f8f9ff'
+                      backgroundColor: theme.colors.background
                     }]}>
                       <View style={[styles.countryCode, { 
-                        backgroundColor: isDark ? 'rgba(71,85,105,0.5)' : '#f0f0f0',
+                        backgroundColor: theme.colors.surface,
                         borderRightColor: theme.colors.border
                       }]}>
                         <Text style={[styles.countryCodeText, { color: theme.colors.text }]}>+91</Text>
@@ -207,11 +207,11 @@ export default function SignupScreen() {
 
               {/* Login Section */}
               <View style={styles.loginSection}>
-                <Text style={[styles.loginText, { color: '#ffffff' }]}>
+                <Text style={[styles.loginText, { color: theme.colors.textSecondary }]}>
                   Already have an account?
                 </Text>
                 <TouchableOpacity onPress={handleLogin}>
-                  <Text style={[styles.loginLink, { color: '#ffffff' }]}>
+                  <Text style={[styles.loginLink, { color: theme.colors.primary }]}>
                     Sign In
                   </Text>
                 </TouchableOpacity>
@@ -247,7 +247,6 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#ffffff',
   },
   placeholder: {
     width: 40,
@@ -273,12 +272,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 8,
-    backgroundColor: '#ffffff',
   },
   stepLabel: {
     fontSize: 12,
     fontWeight: '500',
-    color: '#ffffff',
   },
   stepConnector: {
     position: 'absolute',
@@ -286,7 +283,6 @@ const styles = StyleSheet.create({
     left: '70%',
     right: '-70%',
     height: 2,
-    backgroundColor: '#ffffff',
     opacity: 0.3,
   },
   scrollContent: {

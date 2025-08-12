@@ -69,8 +69,8 @@ export default function LoginScreen() {
     <View style={styles.container}>
       <LinearGradient
         colors={isDark ? 
-          ['#0f0f23', '#1a1a2e', '#16213e'] : 
-          ['#667eea', '#764ba2', '#f093fb']
+          [theme.colors.background, theme.colors.surface, theme.colors.primary + '20'] : 
+          [theme.colors.background, theme.colors.surface, theme.colors.primary + '15']
         }
         style={styles.backgroundGradient}
         start={{ x: 0, y: 0 }}
@@ -78,9 +78,9 @@ export default function LoginScreen() {
       >
         {/* Background Pattern */}
         <View style={styles.backgroundPattern}>
-          <View style={[styles.circle, styles.circle1]} />
-          <View style={[styles.circle, styles.circle2]} />
-          <View style={[styles.circle, styles.circle3]} />
+          <View style={[styles.circle, styles.circle1, { backgroundColor: theme.colors.primary }]} />
+          <View style={[styles.circle, styles.circle2, { backgroundColor: theme.colors.secondary }]} />
+          <View style={[styles.circle, styles.circle3, { backgroundColor: theme.colors.accent }]} />
         </View>
         
         <SafeAreaView style={styles.safeArea}>
@@ -102,7 +102,7 @@ export default function LoginScreen() {
             >
               <View style={styles.logoContainer}>
                 <LinearGradient
-                  colors={isDark ? ['#667eea', '#764ba2'] : ['#f093fb', '#f5576c']}
+                  colors={[theme.colors.primary, theme.colors.secondary]}
                   style={styles.logoCircle}
                   start={{ x: 0, y: 0 }}
                   end={{ x: 1, y: 1 }}
@@ -110,12 +110,12 @@ export default function LoginScreen() {
                   <TrendingUp size={28} color="#ffffff" strokeWidth={2.5} />
                 </LinearGradient>
               </View>
-              <Text style={styles.brandTitle}>BYLD</Text>
-              <Text style={styles.brandSubtitle}>Portfolio Management</Text>
+              <Text style={[styles.brandTitle, { color: theme.colors.text }]}>BYLD</Text>
+              <Text style={[styles.brandSubtitle, { color: theme.colors.textSecondary }]}>Portfolio Management</Text>
               <View style={styles.brandAccent}>
-                <View style={styles.accentDot} />
-                <View style={styles.accentDot} />
-                <View style={styles.accentDot} />
+                <View style={[styles.accentDot, { backgroundColor: theme.colors.primary }]} />
+                <View style={[styles.accentDot, { backgroundColor: theme.colors.secondary }]} />
+                <View style={[styles.accentDot, { backgroundColor: theme.colors.accent }]} />
               </View>
             </Animated.View>
 
@@ -130,10 +130,10 @@ export default function LoginScreen() {
               ]}
             >
               <LinearGradient
-                colors={isDark ? 
-                  ['rgba(30,41,59,0.95)', 'rgba(30,41,59,0.9)'] :
-                  ['rgba(255,255,255,0.95)', 'rgba(255,255,255,0.9)']
-                }
+                colors={[
+                  theme.colors.surface + 'F5',
+                  theme.colors.surface + 'E8'
+                ]}
                 style={styles.cardGradient}
               >
                 <View style={styles.cardHeader}>
@@ -148,10 +148,10 @@ export default function LoginScreen() {
                   <View style={styles.inputGroup}>
                     <Text style={[styles.inputLabel, { color: theme.colors.text }]}>Mobile Number</Text>
                     <View style={[styles.inputContainer, { 
-                      backgroundColor: isDark ? 'rgba(51,65,85,0.5)' : '#f8fafc',
-                      borderColor: isDark ? '#475569' : '#e2e8f0'
+                      backgroundColor: theme.colors.background,
+                      borderColor: theme.colors.border
                     }]}>
-                      <View style={styles.inputIcon}>
+                      <View style={[styles.inputIcon, { backgroundColor: theme.colors.primary + '15' }]}>
                         <Phone size={20} color={theme.colors.primary} />
                       </View>
                       <Input
@@ -171,10 +171,10 @@ export default function LoginScreen() {
                   <View style={styles.inputGroup}>
                     <Text style={[styles.inputLabel, { color: theme.colors.text }]}>PIN</Text>
                     <View style={[styles.inputContainer, { 
-                      backgroundColor: isDark ? 'rgba(51,65,85,0.5)' : '#f8fafc',
-                      borderColor: isDark ? '#475569' : '#e2e8f0'
+                      backgroundColor: theme.colors.background,
+                      borderColor: theme.colors.border
                     }]}>
-                      <View style={styles.inputIcon}>
+                      <View style={[styles.inputIcon, { backgroundColor: theme.colors.primary + '15' }]}>
                         <Lock size={20} color={theme.colors.primary} />
                       </View>
                       <Input
@@ -267,17 +267,17 @@ export default function LoginScreen() {
                     borderColor: theme.colors.primary + '30' 
                   }]}
                 >
-                  <View style={styles.calculatorIconContainer}>
+                  <View style={[styles.calculatorIconContainer, { backgroundColor: theme.colors.surface }]}>
                     <Calculator size={24} color={theme.colors.primary} />
                   </View>
-                  <Text style={[styles.calculatorText, { color: '#ffffff' }]}>Financial Calculators</Text>
-                  <Text style={[styles.calculatorSubtext, { color: '#ffffff' }]}>SIP, STP, SWP & More</Text>
+                  <Text style={[styles.calculatorText, { color: theme.colors.text }]}>Financial Calculators</Text>
+                  <Text style={[styles.calculatorSubtext, { color: theme.colors.textSecondary }]}>SIP, STP, SWP & More</Text>
                 </LinearGradient>
               </TouchableOpacity>
 
               {/* Terms */}
               <TouchableOpacity onPress={openTerms} style={styles.termsButton}>
-                <Text style={styles.termsText}>Terms & Conditions</Text>
+                <Text style={[styles.termsText, { color: theme.colors.textSecondary }]}>Terms & Conditions</Text>
               </TouchableOpacity>
             </Animated.View>
           </ScrollView>
@@ -309,21 +309,18 @@ const styles = StyleSheet.create({
   circle1: {
     width: 200,
     height: 200,
-    backgroundColor: '#667eea',
     top: -100,
     right: -100,
   },
   circle2: {
     width: 150,
     height: 150,
-    backgroundColor: '#f093fb',
     bottom: 100,
     left: -75,
   },
   circle3: {
     width: 100,
     height: 100,
-    backgroundColor: '#ffffff',
     top: height * 0.3,
     right: 50,
   },
@@ -358,7 +355,6 @@ const styles = StyleSheet.create({
   brandTitle: {
     fontSize: 36,
     fontWeight: '900',
-    color: '#ffffff',
     marginBottom: 4,
     letterSpacing: 3,
     textShadowColor: 'rgba(0,0,0,0.3)',
@@ -367,7 +363,6 @@ const styles = StyleSheet.create({
   },
   brandSubtitle: {
     fontSize: 16,
-    color: '#ffffff',
     opacity: 0.9,
     fontWeight: '500',
     letterSpacing: 1,
@@ -381,7 +376,6 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: '#f093fb',
   },
   loginCard: {
     borderRadius: 20,
@@ -436,7 +430,6 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 8,
-    backgroundColor: 'rgba(240,147,251,0.1)',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 10,
@@ -527,11 +520,10 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 28,
-    backgroundColor: 'rgba(255,255,255,0.9)',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 16,
-    shadowColor: '#f093fb',
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 8,
@@ -552,7 +544,6 @@ const styles = StyleSheet.create({
   },
   termsText: {
     fontSize: 14,
-    color: '#ffffff',
     opacity: 0.8,
     textDecorationLine: 'underline',
     fontWeight: '500',
