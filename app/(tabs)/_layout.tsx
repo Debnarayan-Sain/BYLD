@@ -56,13 +56,7 @@ export default function TabLayout() {
           tabBarIcon: ({ color, size }) => <Shield size={size} color={color} />,
         }}
       />
-      <Tabs.Screen
-        name="liabilities"
-        options={{
-          title: "Liability",
-          tabBarIcon: ({ color, size }) => <CreditCard size={size} color={color} />,
-        }}
-      />
+      
       <Tabs.Screen
         name="settings"
         options={{
