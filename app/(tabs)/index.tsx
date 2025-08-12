@@ -73,6 +73,15 @@ export default function DashboardScreen() {
       items: [
         { id: 'insurance', name: 'Insurance', icon: Shield, value: '₹8,50,000', change: '+0%', isPositive: true },
       ]
+    },
+    {
+      id: 'liabilities',
+      title: 'Liabilities',
+      totalValue: '₹12,75,000',
+      isExpanded: false,
+      items: [
+        { id: 'loan', name: 'Loan', icon: Banknote, value: '₹12,75,000', change: '-2.1%', isPositive: true },
+      ]
     }
   ]);
   
