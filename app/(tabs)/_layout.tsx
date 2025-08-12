@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { Home, TrendingUp, Shield, CreditCard } from "lucide-react-native";
+import { Home, TrendingUp, Shield, CreditCard, Settings } from "lucide-react-native";
 import React from "react";
 import { useTheme } from "@/contexts/ThemeContext";
 
@@ -57,10 +57,17 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="settings"
+        name="liabilities"
         options={{
           title: "Liability",
           tabBarIcon: ({ color, size }) => <CreditCard size={size} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: "Settings",
+          tabBarIcon: ({ color, size }) => <Settings size={size} color={color} />,
         }}
       />
     </Tabs>
