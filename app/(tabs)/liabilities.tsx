@@ -58,7 +58,7 @@ const unsecuredLoans: LiabilityItem[] = [
 
 export default function LiabilitiesScreen() {
    useEffect(() => {
-    router.replace('/liablities');
+    router.replace('/liabilities');
   }, []);
 
   return null;
