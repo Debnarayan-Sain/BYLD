@@ -1,6 +1,6 @@
 import React,{useEffect} from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar } from 'react-native';
-import { Stack } from 'expo-router';
+import { Stack,router } from 'expo-router';
 import { Car, Home, CreditCard, User } from 'lucide-react-native';
 import { useTheme } from '@/contexts/ThemeContext';
 
