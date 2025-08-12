@@ -158,6 +158,7 @@ export default function LoginScreen() {
                         style={[styles.input, { color: theme.colors.text }]}
                         testID="mobile-input"
                         placeholderTextColor={theme.colors.textSecondary}
+                        hideContainer={true}
                       />
                     </View>
                   </View>
@@ -182,6 +183,7 @@ export default function LoginScreen() {
                         style={[styles.input, { color: theme.colors.text }]}
                         testID="pin-input"
                         placeholderTextColor={theme.colors.textSecondary}
+                        hideContainer={true}
                       />
                       <TouchableOpacity
                         style={styles.eyeIcon}

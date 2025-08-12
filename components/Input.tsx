@@ -6,35 +6,47 @@ interface InputProps extends TextInputProps {
   label?: string;
   error?: string;
   containerStyle?: any;
+  hideContainer?: boolean;
 }
 
-export default function Input({ label, error, containerStyle, ...props }: InputProps) {
+export default function Input({ label, error, containerStyle, hideContainer, ...props }: InputProps) {
   const { theme } = useTheme();
   const [isFocused, setIsFocused] = useState(false);
+
+  const inputElement = (
+    <TextInput
+      style={[
+        hideContainer ? styles.bareInput : styles.input,
+        {
+          borderColor: !hideContainer ? (
+            error
+              ? theme.colors.error
+              : isFocused
+              ? theme.colors.primary
+              : theme.colors.border
+          ) : 'transparent',
+          backgroundColor: hideContainer ? 'transparent' : theme.colors.surface,
+          color: theme.colors.text,
+        },
+        hideContainer ? props.style : {},
+      ]}
+      placeholderTextColor={theme.colors.textSecondary}
+      onFocus={() => setIsFocused(true)}
+      onBlur={() => setIsFocused(false)}
+      {...props}
+    />
+  );
+
+  if (hideContainer) {
+    return inputElement;
+  }
 
   return (
     <View style={[styles.container, containerStyle]}>
       {label && (
         <Text style={[styles.label, { color: theme.colors.text }]}>{label}</Text>
       )}
-      <TextInput
-        style={[
-          styles.input,
-          {
-            borderColor: error
-              ? theme.colors.error
-              : isFocused
-              ? theme.colors.primary
-              : theme.colors.border,
-            backgroundColor: theme.colors.surface,
-            color: theme.colors.text,
-          },
-        ]}
-        placeholderTextColor={theme.colors.textSecondary}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
-        {...props}
-      />
+      {inputElement}
       {error && (
         <Text style={[styles.error, { color: theme.colors.error }]}>{error}</Text>
       )}
@@ -61,5 +73,12 @@ const styles = StyleSheet.create({
   error: {
     fontSize: 12,
     marginTop: 4,
+  },
+  bareInput: {
+    fontSize: 16,
+    fontWeight: '500',
+    paddingVertical: 12,
+    backgroundColor: 'transparent',
+    borderWidth: 0,
   },
 });
