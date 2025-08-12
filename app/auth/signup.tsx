@@ -100,10 +100,15 @@ export default function SignupScreen() {
     router.replace('/auth/login');
   };
 
+  const isDark = theme.name === 'Dark Professional';
+
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <LinearGradient
-        colors={['#1a1a2e', '#16213e', '#0f3460']}
+        colors={isDark ? 
+          ['#0f172a', '#1e293b', '#334155'] : 
+          ['#1a1a2e', '#16213e', '#0f3460']
+        }
         style={styles.backgroundGradient}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -154,7 +159,7 @@ export default function SignupScreen() {
               ]}
             >
               {/* Main Card */}
-              <View style={styles.mainCard}>
+              <View style={[styles.mainCard, { backgroundColor: theme.colors.surface }]}>
                 <View style={styles.cardContent}>
                   <Text style={[styles.title, { color: theme.colors.text }]}>
                     Enter Mobile Number
@@ -164,8 +169,14 @@ export default function SignupScreen() {
                   </Text>
 
                   <View style={styles.inputContainer}>
-                    <View style={[styles.phoneInputContainer, { borderColor: theme.colors.border }]}>
-                      <View style={styles.countryCode}>
+                    <View style={[styles.phoneInputContainer, { 
+                      borderColor: theme.colors.border,
+                      backgroundColor: isDark ? 'rgba(51,65,85,0.3)' : '#f8f9ff'
+                    }]}>
+                      <View style={[styles.countryCode, { 
+                        backgroundColor: isDark ? 'rgba(71,85,105,0.5)' : '#f0f0f0',
+                        borderRightColor: theme.colors.border
+                      }]}>
                         <Text style={[styles.countryCodeText, { color: theme.colors.text }]}>+91</Text>
                       </View>
                       <View style={styles.phoneInputField}>
@@ -175,8 +186,9 @@ export default function SignupScreen() {
                           keyboardType="phone-pad"
                           placeholder="Enter mobile number"
                           maxLength={10}
-                          style={styles.phoneInput}
+                          style={[styles.phoneInput, { color: theme.colors.text }]}
                           testID="mobile-input"
+                          placeholderTextColor={theme.colors.textSecondary}
                         />
                       </View>
                     </View>
@@ -195,11 +207,11 @@ export default function SignupScreen() {
 
               {/* Login Section */}
               <View style={styles.loginSection}>
-                <Text style={styles.loginText}>
+                <Text style={[styles.loginText, { color: '#ffffff' }]}>
                   Already have an account?
                 </Text>
                 <TouchableOpacity onPress={handleLogin}>
-                  <Text style={styles.loginLink}>
+                  <Text style={[styles.loginLink, { color: '#ffffff' }]}>
                     Sign In
                   </Text>
                 </TouchableOpacity>
@@ -286,7 +298,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   mainCard: {
-    backgroundColor: '#ffffff',
     borderRadius: 24,
     marginTop: 20,
     shadowColor: '#000',
@@ -318,17 +329,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderWidth: 1.5,
     borderRadius: 16,
-    backgroundColor: '#f8f9ff',
     overflow: 'hidden',
   },
   countryCode: {
     paddingHorizontal: 16,
     paddingVertical: 16,
-    backgroundColor: '#f0f0f0',
     justifyContent: 'center',
     alignItems: 'center',
     borderRightWidth: 1,
-    borderRightColor: '#e0e0e0',
   },
   countryCodeText: {
     fontSize: 16,
@@ -359,13 +367,11 @@ const styles = StyleSheet.create({
   },
   loginText: {
     fontSize: 16,
-    color: '#ffffff',
     opacity: 0.9,
   },
   loginLink: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#ffffff',
     textDecorationLine: 'underline',
   },
 });

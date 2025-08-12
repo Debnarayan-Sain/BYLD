@@ -5,12 +5,15 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import { Calculator, Phone, Lock, Eye, EyeOff, TrendingUp } from 'lucide-react-native';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useTheme } from '@/contexts/ThemeContext';
 import Input from '@/components/Input';
 
 const { height } = Dimensions.get('window');
 
 export default function LoginScreen() {
   useLanguage();
+  const { theme } = useTheme();
+  const isDark = theme.name === 'Dark Professional';
   const [mobile, setMobile] = useState('');
   const [pin, setPin] = useState('');
   const [loading, setLoading] = useState(false);
@@ -65,7 +68,10 @@ export default function LoginScreen() {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#1a1a2e', '#16213e', '#0f3460']}
+        colors={isDark ? 
+          ['#0f172a', '#1e293b', '#334155'] : 
+          ['#1a1a2e', '#16213e', '#0f3460']
+        }
         style={styles.backgroundGradient}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
@@ -124,12 +130,15 @@ export default function LoginScreen() {
               ]}
             >
               <LinearGradient
-                colors={['rgba(255,255,255,0.95)', 'rgba(255,255,255,0.9)']}
+                colors={isDark ? 
+                  ['rgba(30,41,59,0.95)', 'rgba(30,41,59,0.9)'] :
+                  ['rgba(255,255,255,0.95)', 'rgba(255,255,255,0.9)']
+                }
                 style={styles.cardGradient}
               >
                 <View style={styles.cardHeader}>
-                  <Text style={[styles.cardTitle, { color: '#1a1a2e' }]}>Welcome Back</Text>
-                  <Text style={[styles.cardSubtitle, { color: '#64748b' }]}>
+                  <Text style={[styles.cardTitle, { color: theme.colors.text }]}>Welcome Back</Text>
+                  <Text style={[styles.cardSubtitle, { color: theme.colors.textSecondary }]}>
                     Sign in to your portfolio
                   </Text>
                 </View>
@@ -137,10 +146,13 @@ export default function LoginScreen() {
                 <View style={styles.formContainer}>
                   {/* Mobile Input */}
                   <View style={styles.inputGroup}>
-                    <Text style={styles.inputLabel}>Mobile Number</Text>
-                    <View style={styles.inputContainer}>
+                    <Text style={[styles.inputLabel, { color: theme.colors.text }]}>Mobile Number</Text>
+                    <View style={[styles.inputContainer, { 
+                      backgroundColor: isDark ? 'rgba(51,65,85,0.5)' : '#f8fafc',
+                      borderColor: isDark ? '#475569' : '#e2e8f0'
+                    }]}>
                       <View style={styles.inputIcon}>
-                        <Phone size={20} color="#4facfe" />
+                        <Phone size={20} color={theme.colors.primary} />
                       </View>
                       <Input
                         value={mobile}
@@ -148,18 +160,22 @@ export default function LoginScreen() {
                         keyboardType="phone-pad"
                         placeholder="Enter your mobile number"
                         maxLength={10}
-                        style={styles.input}
+                        style={[styles.input, { color: theme.colors.text }]}
                         testID="mobile-input"
+                        placeholderTextColor={theme.colors.textSecondary}
                       />
                     </View>
                   </View>
 
                   {/* PIN Input */}
                   <View style={styles.inputGroup}>
-                    <Text style={styles.inputLabel}>PIN</Text>
-                    <View style={styles.inputContainer}>
+                    <Text style={[styles.inputLabel, { color: theme.colors.text }]}>PIN</Text>
+                    <View style={[styles.inputContainer, { 
+                      backgroundColor: isDark ? 'rgba(51,65,85,0.5)' : '#f8fafc',
+                      borderColor: isDark ? '#475569' : '#e2e8f0'
+                    }]}>
                       <View style={styles.inputIcon}>
-                        <Lock size={20} color="#4facfe" />
+                        <Lock size={20} color={theme.colors.primary} />
                       </View>
                       <Input
                         value={pin}
@@ -168,24 +184,25 @@ export default function LoginScreen() {
                         keyboardType="numeric"
                         placeholder="Enter your 6-digit PIN"
                         maxLength={6}
-                        style={styles.input}
+                        style={[styles.input, { color: theme.colors.text }]}
                         testID="pin-input"
+                        placeholderTextColor={theme.colors.textSecondary}
                       />
                       <TouchableOpacity
                         style={styles.eyeIcon}
                         onPress={() => setShowPin(!showPin)}
                       >
                         {showPin ? (
-                          <EyeOff size={20} color="#94a3b8" />
+                          <EyeOff size={20} color={theme.colors.textSecondary} />
                         ) : (
-                          <Eye size={20} color="#94a3b8" />
+                          <Eye size={20} color={theme.colors.textSecondary} />
                         )}
                       </TouchableOpacity>
                     </View>
                   </View>
 
                   <TouchableOpacity style={styles.forgotPin}>
-                    <Text style={styles.forgotPinText}>
+                    <Text style={[styles.forgotPinText, { color: theme.colors.primary }]}>
                       Forgot PIN?
                     </Text>
                   </TouchableOpacity>
@@ -196,7 +213,7 @@ export default function LoginScreen() {
                     testID="login-button"
                   >
                     <LinearGradient
-                      colors={['#4facfe', '#00f2fe']}
+                      colors={[theme.colors.primary, theme.colors.secondary]}
                       style={styles.loginButtonGradient}
                       start={{ x: 0, y: 0 }}
                       end={{ x: 1, y: 0 }}
@@ -210,16 +227,16 @@ export default function LoginScreen() {
                   </TouchableOpacity>
 
                   <View style={styles.divider}>
-                    <View style={styles.dividerLine} />
-                    <Text style={styles.dividerText}>or</Text>
-                    <View style={styles.dividerLine} />
+                    <View style={[styles.dividerLine, { backgroundColor: theme.colors.border }]} />
+                    <Text style={[styles.dividerText, { color: theme.colors.textSecondary }]}>or</Text>
+                    <View style={[styles.dividerLine, { backgroundColor: theme.colors.border }]} />
                   </View>
 
                   <TouchableOpacity
-                    style={styles.signupButton}
+                    style={[styles.signupButton, { borderColor: theme.colors.primary }]}
                     onPress={handleSignup}
                   >
-                    <Text style={styles.signupButtonText}>
+                    <Text style={[styles.signupButtonText, { color: theme.colors.primary }]}>
                       Create New Account
                     </Text>
                   </TouchableOpacity>
@@ -242,14 +259,19 @@ export default function LoginScreen() {
                 onPress={handleCalculators}
               >
                 <LinearGradient
-                  colors={['rgba(79,172,254,0.2)', 'rgba(0,242,254,0.2)']}
-                  style={styles.calculatorGradient}
+                  colors={[
+                    theme.colors.primary + '20', 
+                    theme.colors.secondary + '20'
+                  ]}
+                  style={[styles.calculatorGradient, { 
+                    borderColor: theme.colors.primary + '30' 
+                  }]}
                 >
                   <View style={styles.calculatorIconContainer}>
-                    <Calculator size={24} color="#4facfe" />
+                    <Calculator size={24} color={theme.colors.primary} />
                   </View>
-                  <Text style={styles.calculatorText}>Financial Calculators</Text>
-                  <Text style={styles.calculatorSubtext}>SIP, STP, SWP & More</Text>
+                  <Text style={[styles.calculatorText, { color: '#ffffff' }]}>Financial Calculators</Text>
+                  <Text style={[styles.calculatorSubtext, { color: '#ffffff' }]}>SIP, STP, SWP & More</Text>
                 </LinearGradient>
               </TouchableOpacity>
 
@@ -399,17 +421,14 @@ const styles = StyleSheet.create({
   inputLabel: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#374151',
     marginBottom: 8,
     marginLeft: 4,
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f8fafc',
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
     paddingHorizontal: 12,
     paddingVertical: 2,
   },
@@ -426,7 +445,6 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
     fontWeight: '500',
-    color: '#1f2937',
     paddingVertical: 12,
     backgroundColor: 'transparent',
     borderWidth: 0,
@@ -442,7 +460,6 @@ const styles = StyleSheet.create({
   forgotPinText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#4facfe',
   },
   loginButton: {
     marginBottom: 16,
@@ -472,17 +489,14 @@ const styles = StyleSheet.create({
   dividerLine: {
     flex: 1,
     height: 1,
-    backgroundColor: '#e2e8f0',
   },
   dividerText: {
     marginHorizontal: 16,
     fontSize: 14,
     fontWeight: '500',
-    color: '#94a3b8',
   },
   signupButton: {
     borderWidth: 2,
-    borderColor: '#4facfe',
     borderRadius: 12,
     paddingVertical: 12,
     alignItems: 'center',
@@ -491,7 +505,6 @@ const styles = StyleSheet.create({
   signupButtonText: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#4facfe',
   },
   bottomSection: {
     paddingTop: 24,
@@ -509,7 +522,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 20,
     borderWidth: 1,
-    borderColor: 'rgba(79,172,254,0.3)',
   },
   calculatorIconContainer: {
     width: 56,
@@ -528,12 +540,10 @@ const styles = StyleSheet.create({
   calculatorText: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#ffffff',
     marginBottom: 6,
   },
   calculatorSubtext: {
     fontSize: 14,
-    color: '#ffffff',
     opacity: 0.9,
     fontWeight: '500',
   },

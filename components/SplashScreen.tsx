@@ -88,10 +88,15 @@ export default function SplashScreen({ onFinish }: SplashScreenProps) {
     startAnimation();
   }, [startAnimation]);
 
+  const isDark = theme.name === 'Dark Professional';
+
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#1a1a2e', '#16213e', '#0f3460']}
+        colors={isDark ? 
+          ['#0f172a', '#1e293b', '#334155'] : 
+          ['#1a1a2e', '#16213e', '#0f3460']
+        }
         style={styles.gradient}
       >
         <Animated.View
