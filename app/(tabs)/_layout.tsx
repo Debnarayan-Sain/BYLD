@@ -24,7 +24,7 @@ export default function TabLayout() {
           shadowOpacity: 0.1,
           shadowRadius: 8,
         },
-        headerShown: true,
+        headerShown: false,
         tabBarLabelStyle: {
           fontSize: 11,
           fontWeight: '600',
