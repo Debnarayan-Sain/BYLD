@@ -67,7 +67,8 @@ export default function LiabilitiesScreen() {
           headerStyle: { backgroundColor: theme.colors.surface },
           headerTintColor: theme.colors.text,
           headerTitleStyle: { fontWeight: 'bold' },
-          //headerBackTitle: 'Back'
+          headerBackTitle: 'Back',
+          headerShown: true
         }} 
       />
       <StatusBar barStyle={theme.name === 'Dark Professional' ? 'light-content' : 'dark-content'} backgroundColor={theme.colors.background} />
