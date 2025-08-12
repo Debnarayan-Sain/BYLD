@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar } from 'react-native';
 import { Stack } from 'expo-router';
 import { Car, Home, CreditCard, User } from 'lucide-react-native';
