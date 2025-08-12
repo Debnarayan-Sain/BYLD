@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar } from 'react-native';
-import { router } from 'expo-router';
+import { Stack, router } from 'expo-router';
 import { 
   Banknote,
   PiggyBank,
@@ -42,7 +42,14 @@ export default function AssetsScreen() {
 
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
-
+      <Stack.Screen 
+        options={{
+          title: 'Assets',
+          headerStyle: { backgroundColor: theme.colors.surface },
+          headerTintColor: theme.colors.text,
+          headerTitleStyle: { fontWeight: 'bold' }
+        }} 
+      />
       <StatusBar barStyle={theme.name === 'dark' ? 'light-content' : 'dark-content'} backgroundColor={theme.colors.background} />
       
       <View style={[styles.summaryCard, { backgroundColor: theme.colors.surface }]}>

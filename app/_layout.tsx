@@ -21,10 +21,6 @@ function RootLayoutNav() {
       <Stack.Screen name="auth/otp" options={{ headerShown: false }} />
       <Stack.Screen name="auth/set-pin" options={{ headerShown: false }} />
       <Stack.Screen name="calculators/index" options={{ headerShown: false }} />
-      <Stack.Screen name="assets/index" options={{ headerShown: true, title: "Assets" }} />
-      <Stack.Screen name="assets/bank-accounts" options={{ headerShown: true, title: "Bank Accounts" }} />
-      <Stack.Screen name="security/index" options={{ headerShown: true, title: "Security" }} />
-      <Stack.Screen name="liabilities/index" options={{ headerShown: true, title: "Liabilities" }} />
       <Stack.Screen name="+not-found" options={{ headerShown: true }} />
     </Stack>
   );
