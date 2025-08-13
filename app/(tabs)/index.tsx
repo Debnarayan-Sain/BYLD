@@ -272,7 +272,7 @@ export default function DashboardScreen() {
               const index = Math.round(event.nativeEvent.contentOffset.x / carouselItemWidth);
               setCurrentCarouselIndex(index);
             }}
-            contentContainerStyle={[styles.carouselContent, { width: carouselItemWidth * 3 }]}
+            contentContainerStyle={styles.carouselContent}
             snapToInterval={carouselItemWidth}
             decelerationRate="fast"
           >
