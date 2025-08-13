@@ -18,13 +18,13 @@ export default function Input({ label, error, containerStyle, hideContainer, ...
       style={[
         hideContainer ? styles.bareInput : styles.input,
         {
-          borderColor: !hideContainer ? (
-            error
+          borderColor: !hideContainer
+            ? error
               ? theme.colors.error
               : isFocused
               ? theme.colors.primary
               : theme.colors.border
-          ) : 'transparent',
+            : 'transparent',
           backgroundColor: hideContainer ? 'transparent' : theme.colors.surface,
           color: theme.colors.text,
         },
@@ -67,8 +67,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 12,
     paddingHorizontal: 16,
-    paddingVertical: 14,
     fontSize: 16,
+    height: 50, // fixed height for alignment
+    textAlignVertical: 'center', // vertical align (Android)
+    lineHeight: 22, // makes text & placeholder consistent
   },
   error: {
     fontSize: 12,
@@ -77,9 +79,11 @@ const styles = StyleSheet.create({
   bareInput: {
     fontSize: 16,
     fontWeight: '500',
-    paddingVertical: 12,
+    height: 50,
     backgroundColor: 'transparent',
     borderWidth: 0,
     textAlign: 'left',
+    textAlignVertical: 'center',
+    lineHeight: 22,
   },
 });
