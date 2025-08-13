@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useCallback } from 'react';
-import { View, Text, StyleSheet, Animated } from 'react-native';
+import { View, Text, StyleSheet, Animated, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { TrendingUp, Shield, DollarSign } from 'lucide-react-native';
 import { useTheme } from '@/contexts/ThemeContext';
@@ -177,15 +177,20 @@ export default function SplashScreen({ onFinish }: SplashScreenProps) {
             style={[
               styles.logoContainer,
               { 
-                borderColor: theme.colors.primary,
-                backgroundColor: theme.colors.surface,
                 transform: [{ scale: pulseAnim }],
               },
             ]}
           >
-            <Text style={[styles.logo, { color: theme.colors.primary }]}>BYLD</Text>
-            <View style={[styles.logoAccent, { backgroundColor: theme.colors.secondary }]} />
+            <Image 
+              source={{ uri: 'https://r2-pub.rork.com/attachments/eb5lv7s36z8vyrldi0jc5' }}
+              style={styles.logoImage}
+              resizeMode="contain"
+            />
           </Animated.View>
+          
+          <Text style={[styles.brandText, { color: theme.colors.text }]}>
+            BYLD Wealth
+          </Text>
           
           <Text style={[styles.tagline, { color: theme.colors.text }]}>
             Portfolio Management
@@ -229,32 +234,20 @@ const styles = StyleSheet.create({
     right: -40,
   },
   logoContainer: {
-    width: 140,
-    height: 140,
-    borderRadius: 70,
-    borderWidth: 4,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 24,
     position: 'relative',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.3,
-    shadowRadius: 16,
-    elevation: 8,
   },
-  logo: {
-    fontSize: 36,
+  logoImage: {
+    width: 120,
+    height: 120,
+  },
+  brandText: {
+    fontSize: 32,
     fontWeight: '900',
-    letterSpacing: 3,
-  },
-  logoAccent: {
-    position: 'absolute',
-    bottom: 10,
-    right: 10,
-    width: 12,
-    height: 12,
-    borderRadius: 6,
+    letterSpacing: 2,
+    marginBottom: 8,
   },
   tagline: {
     fontSize: 18,

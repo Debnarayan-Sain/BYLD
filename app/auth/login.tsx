@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Animated, Linking, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Animated, Linking, Dimensions, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
-import { Calculator, Phone, Lock, Eye, EyeOff, TrendingUp } from 'lucide-react-native';
+import { Calculator, Phone, Lock, Eye, EyeOff } from 'lucide-react-native';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import Input from '@/components/Input';
@@ -101,16 +101,13 @@ export default function LoginScreen() {
               ]}
             >
               <View style={styles.logoContainer}>
-                <LinearGradient
-                  colors={[theme.colors.primary, theme.colors.secondary]}
-                  style={styles.logoCircle}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 1 }}
-                >
-                  <TrendingUp size={24} color="#ffffff" strokeWidth={2.5} />
-                </LinearGradient>
+                <Image 
+                  source={{ uri: 'https://r2-pub.rork.com/attachments/eb5lv7s36z8vyrldi0jc5' }}
+                  style={styles.logoImage}
+                  resizeMode="contain"
+                />
               </View>
-              <Text style={[styles.brandTitle, { color: theme.colors.text }]}>BYLD</Text>
+              <Text style={[styles.brandTitle, { color: theme.colors.text }]}>BYLD Wealth</Text>
               <Text style={[styles.brandSubtitle, { color: theme.colors.textSecondary }]}>Portfolio Management</Text>
               <View style={styles.brandAccent}>
                 <View style={[styles.accentDot, { backgroundColor: theme.colors.primary }]} />
@@ -336,18 +333,12 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     marginBottom: 12,
-  },
-  logoCircle: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#f093fb',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.4,
-    shadowRadius: 20,
-    elevation: 15,
+  },
+  logoImage: {
+    width: 80,
+    height: 80,
   },
   brandTitle: {
     fontSize: 32,
