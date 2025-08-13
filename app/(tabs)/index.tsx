@@ -247,9 +247,7 @@ export default function DashboardScreen() {
               <Text style={[styles.customerName, { color: theme.colors.text }]}>
                 {customerName}
               </Text>
-              <View style={[styles.verifiedIconContainer, { backgroundColor: theme.colors.success }]}>
-                <CheckCircle size={14} color="#FFFFFF" />
-              </View>
+              <CheckCircle size={20} color={theme.colors.success} style={styles.verifiedIcon} />
             </View>
           </View>
           <TouchableOpacity 
@@ -610,18 +608,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 8,
   },
-  verifiedIconContainer: {
-    width: 22,
-    height: 22,
-    borderRadius: 11,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 6,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 2,
+  verifiedIcon: {
+    marginLeft: 4,
   },
   logoIcon: {
     width: 24,
@@ -714,15 +702,13 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     borderWidth: 1,
     alignItems: 'center',
-    justifyContent: 'space-between',
     elevation: 3,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.08,
     shadowRadius: 6,
     position: 'relative',
-    height: 140,
-    minWidth: 100,
+    minHeight: 120,
   },
   categoryCardPlaceholder: {
     flex: 1,
