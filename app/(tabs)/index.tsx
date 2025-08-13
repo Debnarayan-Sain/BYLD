@@ -646,7 +646,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '400',
     marginBottom: 4,
-    marginLeft:40,
+    marginLeft:20,
   },
   onlineIndicator: {
     position: 'absolute',
