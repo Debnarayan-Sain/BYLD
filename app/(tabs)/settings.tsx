@@ -17,7 +17,7 @@ export default function SettingsScreen() {
     {
       title: 'Profile Settings',
       icon: User,
-      onPress: () => console.log('Profile pressed'),
+      onPress: () => router.push('/profile-settings'),
       showArrow: true,
     },
     {
