@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
-import { router } from 'expo-router';
+import { router, Stack } from 'expo-router';
 import { ArrowLeft, TrendingDown } from 'lucide-react-native';
 import { useTheme } from '@/contexts/ThemeContext';
 import Input from '@/components/Input';
@@ -64,7 +64,9 @@ export default function SIPSWPCalculatorScreen() {
   };
 
   return (
-    <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]}>
+    <>
+      <Stack.Screen options={{ title: 'SIP SWP Calculator' }} />
+      <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <LinearGradient
         colors={[theme.colors.primary + '10', theme.colors.background]}
         style={styles.gradient}
@@ -155,6 +157,7 @@ export default function SIPSWPCalculatorScreen() {
         </ScrollView>
       </LinearGradient>
     </SafeAreaView>
+    </>
   );
 }
 
