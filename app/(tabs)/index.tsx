@@ -519,7 +519,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.08,
     shadowRadius: 6,
     position: 'relative',
-    minHeight: 120,
+    height: 120,
+    justifyContent: 'space-between',
   },
   categoryCardPlaceholder: {
     flex: 1,
