@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Switch } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Moon, Sun, User, Bell, Shield, HelpCircle, LogOut, ChevronRight } from 'lucide-react-native';
+import { Moon, Sun, User, Bell, Shield, HelpCircle, LogOut, ChevronRight, TrendingUp } from 'lucide-react-native';
 import { useTheme } from '@/contexts/ThemeContext';
+import { router } from 'expo-router';
 
 export default function SettingsScreen() {
   const { theme, changeTheme, availableThemes } = useTheme();
@@ -17,6 +18,12 @@ export default function SettingsScreen() {
       title: 'Profile Settings',
       icon: User,
       onPress: () => console.log('Profile pressed'),
+      showArrow: true,
+    },
+    {
+      title: 'Risk Profile',
+      icon: TrendingUp,
+      onPress: () => router.push('/risk-profile'),
       showArrow: true,
     },
     {
