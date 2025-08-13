@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Stack } from 'expo-router';
+import { Stack, router } from 'expo-router';
 import { 
   Target,
   Home as HomeIcon,
@@ -197,7 +197,10 @@ export default function GoalsScreen() {
         </View>
 
         {/* Add New Goal Button */}
-        <TouchableOpacity style={[styles.addGoalButton, { backgroundColor: theme.colors.primary }]}>
+        <TouchableOpacity 
+          style={[styles.addGoalButton, { backgroundColor: theme.colors.primary }]}
+          onPress={() => router.push('/calculators')}
+        >
           <Plus size={20} color={theme.colors.surface} />
           <Text style={[styles.addGoalText, { color: theme.colors.surface }]}>{t.goals.addGoal}</Text>
         </TouchableOpacity>
