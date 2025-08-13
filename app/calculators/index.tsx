@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated } from '
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
-import { ArrowLeft, Calculator, TrendingUp, PiggyBank, CreditCard, Home, Target } from 'lucide-react-native';
+import { ArrowLeft, Calculator, TrendingUp, PiggyBank, CreditCard, Home, Target, GraduationCap, Heart, DollarSign, Banknote, TrendingDown, Building2 } from 'lucide-react-native';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -15,46 +15,88 @@ export default function CalculatorsScreen() {
 
   const calculators = [
     {
-      id: 'sip',
+      id: 'mf-calculator',
       icon: TrendingUp,
-      title: t.calculators.sip,
-      subtitle: 'Systematic Investment Plan',
+      title: 'MF Calculator',
+      subtitle: 'Mutual Fund Calculator',
       color: '#38a169',
     },
     {
-      id: 'stp',
+      id: 'sip-calculator',
       icon: Calculator,
-      title: t.calculators.stp,
-      subtitle: 'Systematic Transfer Plan',
+      title: 'SIP Calculator',
+      subtitle: 'Systematic Investment Plan',
       color: '#4299e1',
     },
     {
-      id: 'swp',
+      id: 'sip-topup-calculator',
+      icon: TrendingUp,
+      title: 'SIP Topup Calculator',
+      subtitle: 'SIP with Annual Increase',
+      color: '#38b2ac',
+    },
+    {
+      id: 'swp-calculator',
       icon: PiggyBank,
-      title: t.calculators.swp,
+      title: 'SWP Calculator',
       subtitle: 'Systematic Withdrawal Plan',
       color: '#ed8936',
     },
     {
-      id: 'lumpsum',
+      id: 'sip-swp-calculator',
+      icon: TrendingDown,
+      title: 'SIP SWP Calculator',
+      subtitle: 'Combined SIP & SWP',
+      color: '#805ad5',
+    },
+    {
+      id: 'fd-calculator',
+      icon: Building2,
+      title: 'FD Calculator',
+      subtitle: 'Fixed Deposit Calculator',
+      color: '#3182ce',
+    },
+    {
+      id: 'aif-calculator',
       icon: Target,
-      title: t.calculators.lumpsum,
-      subtitle: 'One-time Investment',
+      title: 'AIF Calculator',
+      subtitle: 'Alternative Investment Fund',
       color: '#9f7aea',
     },
     {
-      id: 'emi',
-      icon: CreditCard,
-      title: t.calculators.emi,
-      subtitle: 'Loan EMI Calculator',
+      id: 'lumpsum-calculator',
+      icon: DollarSign,
+      title: 'Lumpsum Calculator',
+      subtitle: 'One-time Investment',
+      color: '#38a169',
+    },
+    {
+      id: 'education-calculator',
+      icon: GraduationCap,
+      title: 'Education Calculator',
+      subtitle: 'Plan for Education',
+      color: '#4299e1',
+    },
+    {
+      id: 'marriage-calculator',
+      icon: Heart,
+      title: 'Marriage Calculator',
+      subtitle: 'Plan for Marriage',
       color: '#e53e3e',
     },
     {
-      id: 'retirement',
+      id: 'retirement-calculator',
       icon: Home,
-      title: t.calculators.retirement,
-      subtitle: 'Plan your retirement',
+      title: 'Retirement Calculator',
+      subtitle: 'Plan your Retirement',
       color: '#38b2ac',
+    },
+    {
+      id: 'future-value-calculator',
+      icon: Banknote,
+      title: 'Future Value Calculator',
+      subtitle: 'Calculate Future Value',
+      color: '#ed8936',
     },
   ];
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -81,8 +123,7 @@ export default function CalculatorsScreen() {
 
   const handleCalculatorPress = (calculatorId: string) => {
     console.log('Calculator pressed:', calculatorId);
-    // For now, just log the calculator press
-    // In a real app, you would navigate to the specific calculator
+    router.push(`/calculators/${calculatorId}`);
   };
 
   return (
