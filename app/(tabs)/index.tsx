@@ -139,7 +139,7 @@ export default function DashboardScreen() {
   const [currentCarouselIndex, setCurrentCarouselIndex] = useState<number>(0);
   const carouselScrollRef = useRef<ScrollView>(null);
   const { width: screenWidth } = Dimensions.get('window');
-  const carouselItemWidth = screenWidth - 40; // 20px margin on each side
+  const carouselItemWidth = screenWidth; // Full screen width
 
   useEffect(() => {
     setGreeting(getTimeBasedGreeting());
@@ -272,12 +272,11 @@ export default function DashboardScreen() {
               const index = Math.round(event.nativeEvent.contentOffset.x / carouselItemWidth);
               setCurrentCarouselIndex(index);
             }}
-            contentContainerStyle={styles.carouselContent}
             snapToInterval={carouselItemWidth}
             decelerationRate="fast"
           >
             {/* Total Portfolio Card */}
-            <View style={[styles.carouselCard, { width: carouselItemWidth, backgroundColor: theme.colors.surface }]}>
+            <View style={[styles.carouselCard, { width: carouselItemWidth, backgroundColor: theme.colors.surface, marginHorizontal: 20 }]}>
               <LinearGradient
                 colors={[theme.colors.primary + '15', theme.colors.secondary + '10', theme.colors.surface]}
                 style={styles.carouselGradient}
@@ -312,7 +311,7 @@ export default function DashboardScreen() {
             </View>
 
             {/* Assets Card */}
-            <View style={[styles.carouselCard, { width: carouselItemWidth, backgroundColor: theme.colors.surface }]}>
+            <View style={[styles.carouselCard, { width: carouselItemWidth, backgroundColor: theme.colors.surface, marginHorizontal: 20 }]}>
               <LinearGradient
                 colors={[theme.colors.success + '15', theme.colors.primary + '10', theme.colors.surface]}
                 style={styles.carouselGradient}
@@ -347,7 +346,7 @@ export default function DashboardScreen() {
             </View>
 
             {/* Liabilities Card */}
-            <View style={[styles.carouselCard, { width: carouselItemWidth, backgroundColor: theme.colors.surface }]}>
+            <View style={[styles.carouselCard, { width: carouselItemWidth, backgroundColor: theme.colors.surface, marginHorizontal: 20 }]}>
               <LinearGradient
                 colors={[theme.colors.error + '15', theme.colors.warning + '10', theme.colors.surface]}
                 style={styles.carouselGradient}
@@ -634,10 +633,9 @@ const styles = StyleSheet.create({
     marginVertical: 16,
   },
   carouselContent: {
-    paddingHorizontal: 20,
+    // Remove padding to ensure proper snapping
   },
   carouselCard: {
-    marginRight: 0,
     borderRadius: 16,
     overflow: 'hidden',
     elevation: 4,
