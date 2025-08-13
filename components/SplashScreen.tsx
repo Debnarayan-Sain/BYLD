@@ -188,7 +188,7 @@ export default function SplashScreen({ onFinish }: SplashScreenProps) {
             />
           </Animated.View>
           
-          <Text style={[styles.brandText, { color: theme.colors.textSecondary }]}>
+          <Text style={[styles.brandText, { color: "#0A338F" }]}>
             BYLD WEALTH
           </Text>
           
