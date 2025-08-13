@@ -1,5 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Stack,useRouter } from "expo-router";
+import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import React, { useEffect, useState } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -34,14 +34,13 @@ function RootLayoutNav() {
 
 export default function RootLayout() {
   const [showSplash, setShowSplash] = useState(true);
-   const router = useRouter();
+
   useEffect(() => {
     SplashScreen.hideAsync();
   }, []);
 
   const handleSplashFinish = () => {
     setShowSplash(false);
-    router.replace("/auth/login"); 
   };
 
   if (showSplash) {
