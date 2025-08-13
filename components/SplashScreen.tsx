@@ -233,7 +233,6 @@ const styles = StyleSheet.create({
   logoContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 24,
     position: 'relative',
   },
   logoImage: {
