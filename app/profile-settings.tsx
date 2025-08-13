@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ArrowLeft, User, Mail, Phone, MapPin, Calendar, Edit3, Save, Camera } from 'lucide-react-native';
+import { ArrowLeft, User, Mail, Phone, MapPin, Calendar, Edit3, Save, Camera, Shield, BarChart3, Target, AlertTriangle, ChevronRight } from 'lucide-react-native';
 import { useTheme } from '@/contexts/ThemeContext';
 import { router, Stack } from 'expo-router';
 
@@ -18,6 +18,44 @@ export default function ProfileSettingsScreen() {
     annualIncome: '800000',
     investmentExperience: 'Intermediate'
   });
+
+  // Mock risk profile data - in real app this would come from storage/API
+  const [riskProfile, setRiskProfile] = useState({
+    level: 'balanced' as 'conservative' | 'balanced' | 'growth' | 'highGrowth',
+    score: 15,
+    lastAssessed: '2024-01-15'
+  });
+
+  const riskProfiles = {
+    conservative: {
+      name: 'Conservative',
+      description: 'Lower returns with capital preservation',
+      icon: Shield,
+      color: '#059669',
+      allocation: 'DEBT: 80%, EQUITY: 20%'
+    },
+    balanced: {
+      name: 'Balanced',
+      description: 'Balanced returns with calculated risks',
+      icon: BarChart3,
+      color: '#7C3AED',
+      allocation: 'DEBT: 50%, EQUITY: 50%'
+    },
+    growth: {
+      name: 'Growth',
+      description: 'Higher returns over long term',
+      icon: Target,
+      color: '#DC2626',
+      allocation: 'DEBT: 30%, EQUITY: 70%'
+    },
+    highGrowth: {
+      name: 'High Growth',
+      description: 'Potentially higher returns with wealth accumulation focus',
+      icon: AlertTriangle,
+      color: '#EA580C',
+      allocation: 'DEBT: 10%, EQUITY: 90%'
+    }
+  };
 
   const handleSave = () => {
     setIsEditing(false);
@@ -179,6 +217,56 @@ export default function ProfileSettingsScreen() {
             icon={User}
             keyName="investmentExperience"
           />
+        </View>
+
+        {/* Risk Profile Section */}
+        <View style={[styles.section, { backgroundColor: theme.colors.surface }]}>
+          <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Risk Profile</Text>
+          
+          <TouchableOpacity 
+            style={[styles.riskProfileContainer, { borderBottomColor: theme.colors.border }]}
+            onPress={() => router.push('/risk-profile')}
+          >
+            <View style={styles.riskProfileLeft}>
+              <View style={[styles.riskIconContainer, { backgroundColor: riskProfiles[riskProfile.level].color + '20' }]}>
+                {React.createElement(riskProfiles[riskProfile.level].icon, {
+                  size: 20,
+                  color: riskProfiles[riskProfile.level].color
+                })}
+              </View>
+              <View style={styles.riskProfileInfo}>
+                <Text style={[styles.riskProfileName, { color: theme.colors.text }]}>
+                  {riskProfiles[riskProfile.level].name} Investor
+                </Text>
+                <Text style={[styles.riskProfileDescription, { color: theme.colors.textSecondary }]}>
+                  {riskProfiles[riskProfile.level].description}
+                </Text>
+                <Text style={[styles.riskProfileAllocation, { color: theme.colors.textSecondary }]}>
+                  {riskProfiles[riskProfile.level].allocation}
+                </Text>
+                <Text style={[styles.riskProfileDate, { color: theme.colors.textSecondary }]}>
+                  Last assessed: {riskProfile.lastAssessed}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.riskProfileRight}>
+              <View style={[styles.scoreContainer, { backgroundColor: riskProfiles[riskProfile.level].color + '20' }]}>
+                <Text style={[styles.scoreText, { color: riskProfiles[riskProfile.level].color }]}>
+                  {riskProfile.score}
+                </Text>
+              </View>
+              <ChevronRight size={20} color={theme.colors.textSecondary} />
+            </View>
+          </TouchableOpacity>
+          
+          <TouchableOpacity 
+            style={[styles.retakeButton, { backgroundColor: theme.colors.primary + '10', borderColor: theme.colors.primary + '30' }]}
+            onPress={() => router.push('/risk-profile')}
+          >
+            <Text style={[styles.retakeButtonText, { color: theme.colors.primary }]}>
+              Retake Risk Assessment
+            </Text>
+          </TouchableOpacity>
         </View>
 
         {/* Action Buttons */}
@@ -356,5 +444,74 @@ const styles = StyleSheet.create({
   },
   bottomSpacing: {
     height: 32,
+  },
+  riskProfileContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    borderBottomWidth: 1,
+  },
+  riskProfileLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  riskIconContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
+  },
+  riskProfileInfo: {
+    flex: 1,
+  },
+  riskProfileName: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 2,
+  },
+  riskProfileDescription: {
+    fontSize: 14,
+    marginBottom: 2,
+  },
+  riskProfileAllocation: {
+    fontSize: 12,
+    marginBottom: 2,
+  },
+  riskProfileDate: {
+    fontSize: 12,
+  },
+  riskProfileRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  scoreContainer: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  scoreText: {
+    fontSize: 14,
+    fontWeight: '700',
+  },
+  retakeButton: {
+    marginHorizontal: 16,
+    marginVertical: 12,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    borderWidth: 1,
+    alignItems: 'center',
+  },
+  retakeButtonText: {
+    fontSize: 14,
+    fontWeight: '600',
   },
 });
