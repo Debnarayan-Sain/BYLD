@@ -9,13 +9,13 @@ export default function ProfileSettingsScreen() {
   const { theme } = useTheme();
   const [isEditing, setIsEditing] = useState(false);
   const [profileData, setProfileData] = useState({
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-    phone: '+1 (555) 123-4567',
-    address: '123 Main Street, New York, NY 10001',
-    dateOfBirth: '15/03/1990',
+    name: 'Debnarayan Sain',
+    email: 'debnarayan.sain@tayana.in',
+    phone: '+91 9845098450',
+    address: '6th floor Subharam Complex,MG Road',
+    dateOfBirth: '15/03/2000',
     occupation: 'Software Engineer',
-    annualIncome: '$85,000',
+    annualIncome: '800000',
     investmentExperience: 'Intermediate'
   });
 
