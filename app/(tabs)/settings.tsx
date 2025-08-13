@@ -1,29 +1,54 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Switch } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Moon, Sun, User, Bell, Shield, HelpCircle, LogOut, ChevronRight, TrendingUp, Globe } from 'lucide-react-native';
+import { Moon, Sun, User, Bell, Shield, HelpCircle, LogOut, ChevronRight, TrendingUp, Globe, Palette } from 'lucide-react-native';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { router } from 'expo-router';
 
 export default function SettingsScreen() {
-  const { theme, changeTheme, availableThemes } = useTheme();
-  const { language, changeLanguage, availableLanguages, t } = useLanguage();
+  const { theme, changeTheme } = useTheme();
+  const { language, t } = useLanguage();
   const isDark = theme.name === 'Dark Professional';
 
   const languageNames: Record<string, string> = {
     en: 'English',
-    hi: 'हिन्दी (Hindi)',
-    bn: 'বাংলা (Bengali)',
-    ta: 'தமிழ் (Tamil)',
-    te: 'తెలుగు (Telugu)',
-    kn: 'ಕನ್ನಡ (Kannada)',
-    ml: 'മലയാളം (Malayalam)',
+    hi: 'हिन्दी',
+    bn: 'বাংলা',
+    ta: 'தமிழ்',
+    te: 'తెలుగు',
+    kn: 'ಕನ್ನಡ',
+    ml: 'മലയാളം',
+  };
+
+  const getCurrentLanguageName = () => {
+    return languageNames[language] || language.toUpperCase();
+  };
+
+  const getCurrentThemeName = () => {
+    return theme.name;
   };
 
   const handleThemeToggle = () => {
     changeTheme(isDark ? 'default' : 'dark');
   };
+
+  const appearanceOptions = [
+    {
+      title: 'Theme',
+      subtitle: getCurrentThemeName(),
+      icon: Palette,
+      onPress: () => router.push('/theme-selection'),
+      showArrow: true,
+    },
+    {
+      title: t.settings.language,
+      subtitle: getCurrentLanguageName(),
+      icon: Globe,
+      onPress: () => router.push('/language-selection'),
+      showArrow: true,
+    },
+  ];
 
   const settingsOptions = [
     {
@@ -66,10 +91,11 @@ export default function SettingsScreen() {
         </View>
         
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-          {/* Theme Section */}
+          {/* Appearance Section */}
           <View style={[styles.section, { backgroundColor: theme.colors.surface }]}>
             <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Appearance</Text>
             
+            {/* Dark Mode Toggle */}
             <View style={[styles.settingItem, { borderBottomColor: theme.colors.border }]}>
               <View style={styles.settingLeft}>
                 <View style={[styles.iconContainer, { backgroundColor: theme.colors.primary + '20' }]}>
@@ -96,36 +122,35 @@ export default function SettingsScreen() {
                 testID="theme-toggle"
               />
             </View>
-          </View>
 
-          {/* Language Section */}
-          <View style={[styles.section, { backgroundColor: theme.colors.surface }]}>
-            <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>{t.settings.language}</Text>
-            
-            {availableLanguages.map((langCode, index) => {
-              const isSelected = language === langCode;
-              
+            {/* Theme and Language Options */}
+            {appearanceOptions.map((option, index) => {
+              const IconComponent = option.icon;
               return (
                 <TouchableOpacity
                   key={index}
                   style={[
-                    styles.languageItem,
+                    styles.settingItem,
                     { borderBottomColor: theme.colors.border },
-                    index === availableLanguages.length - 1 && styles.lastItem,
-                    isSelected && { backgroundColor: theme.colors.primary + '10' }
+                    index === appearanceOptions.length - 1 && styles.lastItem
                   ]}
-                  onPress={() => changeLanguage(langCode)}
+                  onPress={option.onPress}
                 >
-                  <View style={styles.languageLeft}>
+                  <View style={styles.settingLeft}>
                     <View style={[styles.iconContainer, { backgroundColor: theme.colors.primary + '20' }]}>
-                      <Globe size={20} color={theme.colors.primary} />
+                      <IconComponent size={20} color={theme.colors.primary} />
                     </View>
-                    <Text style={[styles.languageTitle, { color: theme.colors.text }]}>
-                      {languageNames[langCode] || langCode.toUpperCase()}
-                    </Text>
+                    <View style={styles.settingTextContainer}>
+                      <Text style={[styles.settingTitle, { color: theme.colors.text }]}>
+                        {option.title}
+                      </Text>
+                      <Text style={[styles.settingSubtitle, { color: theme.colors.textSecondary }]}>
+                        {option.subtitle}
+                      </Text>
+                    </View>
                   </View>
-                  {isSelected && (
-                    <View style={[styles.selectedIndicator, { backgroundColor: theme.colors.primary }]} />
+                  {option.showArrow && (
+                    <ChevronRight size={20} color={theme.colors.textSecondary} />
                   )}
                 </TouchableOpacity>
               );
@@ -158,47 +183,6 @@ export default function SettingsScreen() {
                   </View>
                   {option.showArrow && (
                     <ChevronRight size={20} color={theme.colors.textSecondary} />
-                  )}
-                </TouchableOpacity>
-              );
-            })}
-          </View>
-
-          {/* Theme Options */}
-          <View style={[styles.section, { backgroundColor: theme.colors.surface }]}>
-            <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>{t.settings.theme}</Text>
-            
-            {availableThemes.map((themeName, index) => {
-              const isSelected = theme.name === (themeName === 'default' ? 'Professional Blue' : 
-                                themeName === 'dark' ? 'Dark Professional' :
-                                themeName === 'green' ? 'Wealth Green' : 'Premium Gold');
-              
-              return (
-                <TouchableOpacity
-                  key={index}
-                  style={[
-                    styles.themeItem,
-                    { borderBottomColor: theme.colors.border },
-                    index === availableThemes.length - 1 && styles.lastItem,
-                    isSelected && { backgroundColor: theme.colors.primary + '10' }
-                  ]}
-                  onPress={() => changeTheme(themeName)}
-                >
-                  <View style={styles.themeLeft}>
-                    <View style={[
-                      styles.themeColorPreview,
-                      { backgroundColor: themeName === 'default' ? '#0066CC' :
-                                        themeName === 'dark' ? '#3B82F6' :
-                                        themeName === 'green' ? '#059669' : '#B45309' }
-                    ]} />
-                    <Text style={[styles.themeTitle, { color: theme.colors.text }]}>
-                      {themeName === 'default' ? 'Professional Blue' :
-                       themeName === 'dark' ? 'Dark Professional' :
-                       themeName === 'green' ? 'Wealth Green' : 'Premium Gold'}
-                    </Text>
-                  </View>
-                  {isSelected && (
-                    <View style={[styles.selectedIndicator, { backgroundColor: theme.colors.primary }]} />
                   )}
                 </TouchableOpacity>
               );
@@ -297,51 +281,6 @@ const styles = StyleSheet.create({
   settingSubtitle: {
     fontSize: 14,
     marginTop: 2,
-  },
-  themeItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    paddingVertical: 16,
-    borderBottomWidth: 1,
-  },
-  themeLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-  },
-  themeColorPreview: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    marginRight: 12,
-  },
-  themeTitle: {
-    fontSize: 16,
-    fontWeight: '500',
-  },
-  selectedIndicator: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-  },
-  languageItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    paddingVertical: 16,
-    borderBottomWidth: 1,
-  },
-  languageLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-  },
-  languageTitle: {
-    fontSize: 16,
-    fontWeight: '500',
   },
   logoutItem: {
     borderBottomWidth: 0,
