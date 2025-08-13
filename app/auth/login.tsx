@@ -264,7 +264,7 @@ export default function LoginScreen() {
                   <View style={[styles.calculatorIconContainer, { backgroundColor: theme.colors.surface }]}>
                     <Calculator size={24} color={theme.colors.primary} />
                   </View>
-                  <Text style={[styles.calculatorText, { color: theme.colors.text }]}>Financial Calculators</Text>
+                  <Text style={[styles.calculatorText, { color: theme.colors.text }]}>BYLD Calculators</Text>
                   <Text style={[styles.calculatorSubtext, { color: theme.colors.textSecondary }]}>SIP, STP, SWP & More</Text>
                 </LinearGradient>
               </TouchableOpacity>
