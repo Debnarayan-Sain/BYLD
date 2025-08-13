@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ArrowLeft, User, Mail, Phone, MapPin, Calendar, Edit3, Save, Camera, Shield, BarChart3, Target, AlertTriangle, ChevronRight } from 'lucide-react-native';
+import { ArrowLeft, User, Mail, Phone, MapPin, Calendar, Edit3, Save, Camera, Shield, BarChart3, Target, AlertTriangle, ChevronRight, CreditCard } from 'lucide-react-native';
 import { useTheme } from '@/contexts/ThemeContext';
 import { router, Stack } from 'expo-router';
 
@@ -12,6 +12,7 @@ export default function ProfileSettingsScreen() {
     name: 'Debnarayan Sain',
     email: 'debnarayan.sain@tayana.in',
     phone: '+91 9845098450',
+    panCard: 'ABCDE1234F',
     address: '6th floor Subharam Complex,MG Road',
     dateOfBirth: '15/03/2000',
     occupation: 'Software Engineer',
@@ -175,6 +176,13 @@ export default function ProfileSettingsScreen() {
             value={profileData.phone}
             icon={Phone}
             keyName="phone"
+          />
+          
+          <ProfileField
+            label="PAN Card"
+            value={profileData.panCard}
+            icon={CreditCard}
+            keyName="panCard"
           />
           
           <ProfileField

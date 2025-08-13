@@ -14,14 +14,14 @@ export default function ThemeSelectionScreen() {
     default: 'Professional Blue',
     dark: 'Dark Professional',
     green: 'Wealth Green',
-    gold: 'Premium Gold'
+    premium: 'Premium Gold'
   };
 
   const themeColors = {
     default: '#0066CC',
     dark: '#3B82F6',
     green: '#059669',
-    gold: '#B45309'
+    premium: '#B45309'
   };
 
   const getCurrentThemeKey = () => {
@@ -80,7 +80,8 @@ export default function ThemeSelectionScreen() {
                       <Text style={[styles.themeDescription, { color: theme.colors.textSecondary }]}>
                         {themeName === 'default' ? 'Clean and professional' :
                          themeName === 'dark' ? 'Easy on the eyes' :
-                         themeName === 'green' ? 'Wealth and growth focused' : 'Premium and elegant'}
+                         themeName === 'green' ? 'Wealth and growth focused' :
+                         themeName === 'premium' ? 'Premium and elegant' : 'Custom theme'}
                       </Text>
                     </View>
                   </View>

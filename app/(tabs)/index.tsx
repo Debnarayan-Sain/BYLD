@@ -21,6 +21,7 @@ import {
   CreditCard,
   Target,
   BookOpen,
+  CheckCircle,
 } from 'lucide-react-native';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -246,6 +247,7 @@ export default function DashboardScreen() {
               <Text style={[styles.customerName, { color: theme.colors.text }]}>
                 {customerName}
               </Text>
+              <CheckCircle size={20} color={theme.colors.success} style={styles.verifiedIcon} />
             </View>
           </View>
           <TouchableOpacity 
@@ -605,6 +607,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
+  },
+  verifiedIcon: {
+    marginLeft: 4,
   },
   logoIcon: {
     width: 24,
