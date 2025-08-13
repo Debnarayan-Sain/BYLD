@@ -80,9 +80,8 @@ export default function SettingsScreen() {
           <View style={[styles.section, { backgroundColor: theme.colors.surface }]}>
             <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Theme Options</Text>
             
-            {availableThemes.map((themeName, index) => {
-              const isSelected = theme.name === (themeName === 'default' ? 'Professional Blue' : 
-                                themeName === 'green' ? 'Wealth Green' : 'Premium Gold');
+            {availableThemes.filter(themeName => themeName !== 'premium').map((themeName, index, filteredArray) => {
+              const isSelected = theme.name === (themeName === 'default' ? 'Professional Blue' : 'Wealth Green');
               
               return (
                 <TouchableOpacity
@@ -90,7 +89,7 @@ export default function SettingsScreen() {
                   style={[
                     styles.themeItem,
                     { borderBottomColor: theme.colors.border },
-                    index === availableThemes.length - 1 && styles.lastItem,
+                    index === filteredArray.length - 1 && styles.lastItem,
                     isSelected && { backgroundColor: theme.colors.primary + '10' }
                   ]}
                   onPress={() => changeTheme(themeName)}
@@ -98,12 +97,10 @@ export default function SettingsScreen() {
                   <View style={styles.themeLeft}>
                     <View style={[
                       styles.themeColorPreview,
-                      { backgroundColor: themeName === 'default' ? '#0066CC' :
-                                        themeName === 'green' ? '#059669' : '#B45309' }
+                      { backgroundColor: themeName === 'default' ? '#0066CC' : '#059669' }
                     ]} />
                     <Text style={[styles.themeTitle, { color: theme.colors.text }]}>
-                      {themeName === 'default' ? 'Professional Blue' :
-                       themeName === 'green' ? 'Wealth Green' : 'Premium Gold'}
+                      {themeName === 'default' ? 'Professional Blue' : 'Wealth Green'}
                     </Text>
                   </View>
                   {isSelected && (
