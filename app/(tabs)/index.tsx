@@ -646,7 +646,9 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
   },
   carouselGradient: {
-    padding: 20,
+    padding: 24,
+    minHeight: 180,
+    justifyContent: 'space-between',
   },
   carouselHeader: {
     flexDirection: 'row',
