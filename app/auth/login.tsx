@@ -352,7 +352,7 @@ const styles = StyleSheet.create({
     opacity: 0.9,
     fontWeight: '500',
     letterSpacing: 1,
-    marginTop: -10,
+    marginTop: -20,
   },
   brandAccent: {
     flexDirection: 'row',
