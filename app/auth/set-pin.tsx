@@ -225,23 +225,26 @@ export default function SetPinScreen() {
 
                       {/* PIN Input */}
                       <View style={styles.inputGroup}>
-                        <View style={[styles.inputContainer, { borderColor: theme.colors.border }]}>
+                        <Text style={[styles.inputLabel, { color: theme.colors.text }]}>PIN</Text>
+                        <View style={[styles.inputContainer, { 
+                          backgroundColor: theme.colors.background,
+                          borderColor: theme.colors.border
+                        }]}>
                           <View style={[styles.inputIcon, { backgroundColor: theme.colors.primary + '15' }]}>
                             <Lock size={20} color={theme.colors.primary} />
                           </View>
-                          <View style={styles.inputField}>
-                            <Text style={[styles.inputLabel, { color: theme.colors.textSecondary }]}>Enter PIN</Text>
-                            <Input
-                              value={pin}
-                              onChangeText={setPin}
-                              secureTextEntry={!showPin}
-                              keyboardType="numeric"
-                              placeholder="Enter 6-digit PIN"
-                              maxLength={6}
-                              style={styles.input}
-                              testID="pin-input"
-                            />
-                          </View>
+                          <Input
+                            value={pin}
+                            onChangeText={setPin}
+                            secureTextEntry={!showPin}
+                            keyboardType="numeric"
+                            placeholder="Enter 6-digit PIN"
+                            maxLength={6}
+                            style={[styles.input, { color: theme.colors.text }]}
+                            testID="pin-input"
+                            placeholderTextColor={theme.colors.textSecondary}
+                            hideContainer={true}
+                          />
                           <TouchableOpacity
                             style={styles.eyeIcon}
                             onPress={() => setShowPin(!showPin)}
@@ -257,28 +260,29 @@ export default function SetPinScreen() {
 
                       {/* Confirm PIN Input */}
                       <View style={styles.inputGroup}>
+                        <Text style={[styles.inputLabel, { color: theme.colors.text }]}>Confirm PIN</Text>
                         <View style={[
                           styles.inputContainer, 
                           { 
+                            backgroundColor: theme.colors.background,
                             borderColor: confirmPin && pin !== confirmPin ? '#ff4757' : theme.colors.border 
                           }
                         ]}>
                           <View style={[styles.inputIcon, { backgroundColor: theme.colors.primary + '15' }]}>
                             <Lock size={20} color={theme.colors.primary} />
                           </View>
-                          <View style={styles.inputField}>
-                            <Text style={[styles.inputLabel, { color: theme.colors.textSecondary }]}>Confirm PIN</Text>
-                            <Input
-                              value={confirmPin}
-                              onChangeText={setConfirmPin}
-                              secureTextEntry={!showConfirmPin}
-                              keyboardType="numeric"
-                              placeholder="Confirm your PIN"
-                              maxLength={6}
-                              style={styles.input}
-                              testID="confirm-pin-input"
-                            />
-                          </View>
+                          <Input
+                            value={confirmPin}
+                            onChangeText={setConfirmPin}
+                            secureTextEntry={!showConfirmPin}
+                            keyboardType="numeric"
+                            placeholder="Confirm your PIN"
+                            maxLength={6}
+                            style={[styles.input, { color: theme.colors.text }]}
+                            testID="confirm-pin-input"
+                            placeholderTextColor={theme.colors.textSecondary}
+                            hideContainer={true}
+                          />
                           <TouchableOpacity
                             style={styles.eyeIcon}
                             onPress={() => setShowConfirmPin(!showConfirmPin)}
@@ -315,26 +319,27 @@ export default function SetPinScreen() {
 
                       {/* PAN Card Input */}
                       <View style={styles.inputGroup}>
+                        <Text style={[styles.inputLabel, { color: theme.colors.text }]}>PAN Card Number</Text>
                         <View style={[
                           styles.inputContainer, 
                           { 
+                            backgroundColor: theme.colors.background,
                             borderColor: panCard && !isPanValid ? '#ff4757' : theme.colors.border 
                           }
                         ]}>
                           <View style={[styles.inputIcon, { backgroundColor: theme.colors.primary + '15' }]}>
                             <CreditCard size={20} color={theme.colors.primary} />
                           </View>
-                          <View style={styles.inputField}>
-                            <Text style={[styles.inputLabel, { color: theme.colors.textSecondary }]}>PAN Card Number</Text>
-                            <Input
-                              value={panCard}
-                              onChangeText={handlePanCardChange}
-                              placeholder="ABCDE 1234 F"
-                              autoCapitalize="characters"
-                              style={styles.input}
-                              testID="pan-input"
-                            />
-                          </View>
+                          <Input
+                            value={panCard}
+                            onChangeText={handlePanCardChange}
+                            placeholder="ABCDE 1234 F"
+                            autoCapitalize="characters"
+                            style={[styles.input, { color: theme.colors.text }]}
+                            testID="pan-input"
+                            placeholderTextColor={theme.colors.textSecondary}
+                            hideContainer={true}
+                          />
                         </View>
                         {panCard && !isPanValid && (
                           <Text style={styles.errorText}>Please enter a valid PAN card number</Text>
@@ -468,45 +473,40 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   inputGroup: {
-    marginBottom: 20,
+    marginBottom: 16,
+  },
+  inputLabel: {
+    fontSize: 14,
+    fontWeight: '600',
+    marginBottom: 8,
+    marginLeft: 4,
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderWidth: 1.5,
-    borderRadius: 16,
-    backgroundColor: '#f8f9ff',
-    paddingHorizontal: 16,
-    paddingVertical: 4,
+    borderRadius: 12,
+    borderWidth: 1,
+    paddingHorizontal: 12,
+    paddingVertical: 2,
   },
   inputIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 12,
+    width: 36,
+    height: 36,
+    borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 12,
-  },
-  inputField: {
-    flex: 1,
-  },
-  inputLabel: {
-    fontSize: 12,
-    fontWeight: '600',
-    marginBottom: 2,
-    textTransform: 'uppercase',
-    letterSpacing: 0.5,
+    marginRight: 10,
   },
   input: {
+    flex: 1,
     fontSize: 16,
     fontWeight: '500',
-    padding: 0,
-    margin: 0,
+    paddingVertical: 12,
     backgroundColor: 'transparent',
     borderWidth: 0,
   },
   eyeIcon: {
-    padding: 8,
+    padding: 12,
   },
   errorText: {
     color: '#ff4757',
