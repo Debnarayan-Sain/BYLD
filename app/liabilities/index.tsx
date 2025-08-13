@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, StatusBar } from 'react-native';
-import { Stack } from 'expo-router';
-import { Car, Home, CreditCard, User } from 'lucide-react-native';
+import { Stack, router } from 'expo-router';
+import { Car, Home, CreditCard, User, ArrowLeft } from 'lucide-react-native';
 import { useTheme } from '@/contexts/ThemeContext';
 
 interface LiabilityItem {
@@ -66,7 +66,16 @@ export default function LiabilitiesScreen() {
           title: 'Liabilities',
           headerStyle: { backgroundColor: theme.colors.surface },
           headerTintColor: theme.colors.text,
-          headerTitleStyle: { fontWeight: 'bold' }
+          headerTitleStyle: { fontWeight: 'bold' },
+          headerLeft: () => (
+            <TouchableOpacity 
+              onPress={() => router.back()}
+              style={{ marginLeft: 16, padding: 8 }}
+              testID="back-button"
+            >
+              <ArrowLeft size={24} color={theme.colors.text} />
+            </TouchableOpacity>
+          ),
         }} 
       />
       <StatusBar barStyle={theme.name === 'Dark Professional' ? 'light-content' : 'dark-content'} backgroundColor={theme.colors.background} />
