@@ -190,7 +190,7 @@ export default function SplashScreen({ onFinish }: SplashScreenProps) {
           
           
           <Text style={[styles.tagline, { color: theme.colors.text }]}>
-            Portfolio Management
+            Wealth Management
           </Text>
           <Text style={[styles.subtitle, { color: theme.colors.textSecondary }]}>
             Build Your Legacy Daily
