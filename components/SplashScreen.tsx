@@ -189,7 +189,7 @@ export default function SplashScreen({ onFinish }: SplashScreenProps) {
           </Animated.View>
           
           <Text style={[styles.brandText, { color: theme.colors.text }]}>
-            BYLD Wealth
+            BYLD WEALTH
           </Text>
           
           <Text style={[styles.tagline, { color: theme.colors.text }]}>
