@@ -144,10 +144,10 @@ export default function DashboardScreen() {
         router.push('/liabilities');
         break;
       case 'goals':
-        router.push('/(tabs)/../goals/index' as any);
+        router.push('/goals');
         break;
       case 'education':
-        router.push('/(tabs)/../education/index' as any);
+        router.push('/education');
         break;
       default:
         break;
