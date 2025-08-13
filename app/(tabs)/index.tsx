@@ -175,7 +175,7 @@ export default function DashboardScreen() {
         router.push('/security');
         break;
       case 'liabilities':
-        router.push('/liability');
+        router.push('/liabilities');
         break;
       case 'goals':
         router.push('/goals');
