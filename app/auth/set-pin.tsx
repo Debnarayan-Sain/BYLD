@@ -100,8 +100,8 @@ export default function SetPinScreen() {
   };
 
   const handleSetPanCard = async () => {
-    if (!panCard || panCard.length !== 10) {
-      Alert.alert('Error', 'Please enter a valid 10-digit PAN card number');
+    if (!panCard || !validatePanCard(panCard)) {
+      Alert.alert('Error', 'Please enter a valid PAN card number');
       return;
     }
     
