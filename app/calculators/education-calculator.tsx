@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity ,Stack} from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
@@ -47,11 +47,6 @@ export default function EducationCalculatorScreen() {
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]}>
-      <Stack.Screen
-  name="education-calculator"
-  options={{ headerShown: false }}
-/>
-
       <LinearGradient
         colors={[theme.colors.primary + '10', theme.colors.background]}
         style={styles.gradient}
