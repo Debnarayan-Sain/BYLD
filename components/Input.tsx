@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: 'transparent',
     borderWidth: 0,
-    textAlign: 'left',
+    textAlign: 'center',
     textAlignVertical: 'center',
     paddingVertical: 15,
     includeFontPadding: false,
