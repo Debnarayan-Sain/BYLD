@@ -272,7 +272,9 @@ export default function DashboardScreen() {
               const index = Math.round(event.nativeEvent.contentOffset.x / carouselItemWidth);
               setCurrentCarouselIndex(index);
             }}
-            contentContainerStyle={styles.carouselContent}
+            contentContainerStyle={[styles.carouselContent, { width: carouselItemWidth * 3 }]}
+            snapToInterval={carouselItemWidth}
+            decelerationRate="fast"
           >
             {/* Total Portfolio Card */}
             <View style={[styles.carouselCard, { width: carouselItemWidth, backgroundColor: theme.colors.surface }]}>
