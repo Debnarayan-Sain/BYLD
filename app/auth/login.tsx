@@ -107,7 +107,7 @@ export default function LoginScreen() {
                   resizeMode="contain"
                 />
               </View>
-              <Text style={[styles.brandTitle, { color: theme.colors.text }]}>BYLD Wealth</Text>
+              <Text style={[styles.brandTitle, { color: "#0A338F" }]}>BYLD WEALTH</Text>
               <Text style={[styles.brandSubtitle, { color: theme.colors.textSecondary }]}>Portfolio Management</Text>
               <View style={styles.brandAccent}>
                 <View style={[styles.accentDot, { backgroundColor: theme.colors.primary }]} />
