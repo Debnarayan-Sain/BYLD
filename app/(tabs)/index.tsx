@@ -367,6 +367,8 @@ export default function DashboardScreen() {
               </TouchableOpacity>
             );
           })}
+          {/* Add empty placeholder to maintain 3-card layout */}
+          <View style={styles.categoryCardPlaceholder} />
         </View>
 
 
@@ -517,6 +519,10 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.08,
     shadowRadius: 6,
     position: 'relative',
+    minHeight: 120,
+  },
+  categoryCardPlaceholder: {
+    flex: 1,
   },
   categoryCardIcon: {
     width: 48,
