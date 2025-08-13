@@ -8,7 +8,7 @@ import { router } from 'expo-router';
 
 export default function SettingsScreen() {
   const { theme, changeTheme, availableThemes } = useTheme();
-  const { language, changeLanguage, availableLanguages } = useLanguage();
+  const { language, changeLanguage, availableLanguages, t } = useLanguage();
   const isDark = theme.name === 'Dark Professional';
 
   const languageNames: Record<string, string> = {
@@ -27,31 +27,31 @@ export default function SettingsScreen() {
 
   const settingsOptions = [
     {
-      title: 'Profile Settings',
+      title: t.settings.profileSettings,
       icon: User,
       onPress: () => router.push('/profile-settings'),
       showArrow: true,
     },
     {
-      title: 'Risk Profile',
+      title: t.settings.riskProfile,
       icon: TrendingUp,
       onPress: () => router.push('/risk-profile'),
       showArrow: true,
     },
     {
-      title: 'Notifications',
+      title: t.settings.notifications,
       icon: Bell,
       onPress: () => console.log('Notifications pressed'),
       showArrow: true,
     },
     {
-      title: 'Security',
+      title: t.settings.security,
       icon: Shield,
       onPress: () => console.log('Security pressed'),
       showArrow: true,
     },
     {
-      title: 'Help & Support',
+      title: t.settings.help,
       icon: HelpCircle,
       onPress: () => console.log('Help pressed'),
       showArrow: true,
@@ -62,7 +62,7 @@ export default function SettingsScreen() {
     <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.background }]} edges={['top', 'bottom']}>
         {/* Custom Header */}
         <View style={[styles.header, { backgroundColor: theme.colors.background, borderBottomColor: theme.colors.border }]}>
-          <Text style={[styles.headerTitle, { color: theme.colors.text }]}>Settings</Text>
+          <Text style={[styles.headerTitle, { color: theme.colors.text }]}>{t.settings.title}</Text>
         </View>
         
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
@@ -100,7 +100,7 @@ export default function SettingsScreen() {
 
           {/* Language Section */}
           <View style={[styles.section, { backgroundColor: theme.colors.surface }]}>
-            <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Language</Text>
+            <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>{t.settings.language}</Text>
             
             {availableLanguages.map((langCode, index) => {
               const isSelected = language === langCode;
@@ -166,7 +166,7 @@ export default function SettingsScreen() {
 
           {/* Theme Options */}
           <View style={[styles.section, { backgroundColor: theme.colors.surface }]}>
-            <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Theme Options</Text>
+            <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>{t.settings.theme}</Text>
             
             {availableThemes.map((themeName, index) => {
               const isSelected = theme.name === (themeName === 'default' ? 'Professional Blue' : 
@@ -216,7 +216,7 @@ export default function SettingsScreen() {
                   <LogOut size={20} color={theme.colors.error} />
                 </View>
                 <Text style={[styles.settingTitle, { color: theme.colors.error }]}>
-                  Logout
+                  {t.settings.logout}
                 </Text>
               </View>
             </TouchableOpacity>

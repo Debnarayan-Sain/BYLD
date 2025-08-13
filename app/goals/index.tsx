@@ -15,6 +15,7 @@ import {
   CheckCircle,
 } from 'lucide-react-native';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface Goal {
   id: string;
@@ -33,16 +34,17 @@ interface Goal {
 
 export default function GoalsScreen() {
   const { theme } = useTheme();
+  const { t } = useLanguage();
   
   const [goals] = useState<Goal[]>([
     {
       id: '1',
-      title: 'Retirement Fund',
+      title: t.goals.retirement,
       targetAmount: '₹2,00,00,000',
       currentAmount: '₹1,30,00,000',
       progress: 65,
       targetDate: 'Dec 2045',
-      category: 'Retirement',
+      category: t.goals.retirement,
       icon: Target,
       color: '#4F46E5',
       monthlyContribution: '₹25,000',
@@ -51,7 +53,7 @@ export default function GoalsScreen() {
     },
     {
       id: '2',
-      title: 'Dream House',
+      title: t.goals.house,
       targetAmount: '₹1,50,00,000',
       currentAmount: '₹67,50,000',
       progress: 45,
@@ -65,12 +67,12 @@ export default function GoalsScreen() {
     },
     {
       id: '3',
-      title: 'Child Education',
+      title: t.goals.education,
       targetAmount: '₹50,00,000',
       currentAmount: '₹39,00,000',
       progress: 78,
       targetDate: 'Apr 2030',
-      category: 'Education',
+      category: t.goals.education,
       icon: BookOpen,
       color: '#DC2626',
       monthlyContribution: '₹15,000',
@@ -79,7 +81,7 @@ export default function GoalsScreen() {
     },
     {
       id: '4',
-      title: 'World Tour',
+      title: t.goals.vacation,
       targetAmount: '₹10,00,000',
       currentAmount: '₹3,20,000',
       progress: 32,
@@ -93,7 +95,7 @@ export default function GoalsScreen() {
     },
     {
       id: '5',
-      title: 'Emergency Fund',
+      title: t.goals.emergency,
       targetAmount: '₹15,00,000',
       currentAmount: '₹13,50,000',
       progress: 90,
@@ -145,7 +147,7 @@ export default function GoalsScreen() {
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <Stack.Screen 
         options={{ 
-          title: 'Financial Goals',
+          title: t.goals.financialGoals,
           headerStyle: { backgroundColor: theme.colors.surface },
           headerTintColor: theme.colors.text,
           headerTitleStyle: { fontWeight: 'bold' },
@@ -175,11 +177,11 @@ export default function GoalsScreen() {
             
             <View style={styles.overviewStats}>
               <View style={styles.statItem}>
-                <Text style={[styles.statLabel, { color: theme.colors.textSecondary }]}>Target</Text>
+                <Text style={[styles.statLabel, { color: theme.colors.textSecondary }]}>{t.goals.targetAmount}</Text>
                 <Text style={[styles.statValue, { color: theme.colors.text }]}>{totalGoalValue}</Text>
               </View>
               <View style={styles.statItem}>
-                <Text style={[styles.statLabel, { color: theme.colors.textSecondary }]}>Achieved</Text>
+                <Text style={[styles.statLabel, { color: theme.colors.textSecondary }]}>{t.goals.currentAmount}</Text>
                 <Text style={[styles.statValue, { color: theme.colors.success }]}>{totalCurrentValue}</Text>
               </View>
               <View style={styles.statItem}>
@@ -197,7 +199,7 @@ export default function GoalsScreen() {
         {/* Add New Goal Button */}
         <TouchableOpacity style={[styles.addGoalButton, { backgroundColor: theme.colors.primary }]}>
           <Plus size={20} color={theme.colors.surface} />
-          <Text style={[styles.addGoalText, { color: theme.colors.surface }]}>Add New Goal</Text>
+          <Text style={[styles.addGoalText, { color: theme.colors.surface }]}>{t.goals.addGoal}</Text>
         </TouchableOpacity>
 
         {/* Goals List */}

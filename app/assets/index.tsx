@@ -13,6 +13,7 @@ import {
   BarChart3
 } from 'lucide-react-native';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface AssetItem {
   id: string;
@@ -23,28 +24,31 @@ interface AssetItem {
   isPositive: boolean;
 }
 
-const assetItems: AssetItem[] = [
-  { id: 'bank', name: 'Bank Accounts', icon: Banknote, value: '₹2,50,000', change: '+2.5%', isPositive: true },
-  { id: 'deposits', name: 'Deposits', icon: PiggyBank, value: '₹5,00,000', change: '+4.2%', isPositive: true },
-  { id: 'mutual_funds', name: 'Mutual Funds', icon: TrendingUp, value: '₹3,25,000', change: '+12.8%', isPositive: true },
-  { id: 'equity', name: 'Equity', icon: BarChart3, value: '₹2,15,000', change: '-3.2%', isPositive: false },
-  { id: 'pms', name: 'PMS', icon: Briefcase, value: '₹1,50,000', change: '+8.5%', isPositive: true },
-  { id: 'aif', name: 'AIF', icon: Building, value: '₹75,000', change: '+6.1%', isPositive: true },
-  { id: 'bonds', name: 'Bonds', icon: Landmark, value: '₹50,000', change: '+3.8%', isPositive: true },
-  { id: 'real_estate', name: 'Real Estate', icon: HomeIcon, value: '₹25,00,000', change: '+15.2%', isPositive: true },
-  { id: 'commodities', name: 'Commodities', icon: Coins, value: '₹35,000', change: '-1.5%', isPositive: false },
-  { id: 'equity_unlisted', name: 'Equity (Unlisted)', icon: BarChart3, value: '₹1,25,000', change: '+22.3%', isPositive: true },
-  { id: 'others', name: 'Others', icon: Briefcase, value: '₹45,000', change: '+5.7%', isPositive: true },
-];
+
 
 export default function AssetsScreen() {
   const { theme } = useTheme();
+  const { t } = useLanguage();
+
+  const assetItems: AssetItem[] = [
+    { id: 'bank', name: t.assets.bankAccounts, icon: Banknote, value: '₹2,50,000', change: '+2.5%', isPositive: true },
+    { id: 'deposits', name: 'Deposits', icon: PiggyBank, value: '₹5,00,000', change: '+4.2%', isPositive: true },
+    { id: 'mutual_funds', name: t.assets.mutualFunds, icon: TrendingUp, value: '₹3,25,000', change: '+12.8%', isPositive: true },
+    { id: 'equity', name: t.assets.stocks, icon: BarChart3, value: '₹2,15,000', change: '-3.2%', isPositive: false },
+    { id: 'pms', name: 'PMS', icon: Briefcase, value: '₹1,50,000', change: '+8.5%', isPositive: true },
+    { id: 'aif', name: 'AIF', icon: Building, value: '₹75,000', change: '+6.1%', isPositive: true },
+    { id: 'bonds', name: t.assets.bonds, icon: Landmark, value: '₹50,000', change: '+3.8%', isPositive: true },
+    { id: 'real_estate', name: t.assets.realEstate, icon: HomeIcon, value: '₹25,00,000', change: '+15.2%', isPositive: true },
+    { id: 'commodities', name: 'Commodities', icon: Coins, value: '₹35,000', change: '-1.5%', isPositive: false },
+    { id: 'equity_unlisted', name: 'Equity (Unlisted)', icon: BarChart3, value: '₹1,25,000', change: '+22.3%', isPositive: true },
+    { id: 'others', name: t.assets.others, icon: Briefcase, value: '₹45,000', change: '+5.7%', isPositive: true },
+  ];
 
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <Stack.Screen 
         options={{
-          title: 'Assets',
+          title: t.assets.title,
           headerStyle: { backgroundColor: theme.colors.surface },
           headerTintColor: theme.colors.text,
           headerTitleStyle: { fontWeight: 'bold' }
@@ -53,7 +57,7 @@ export default function AssetsScreen() {
       <StatusBar barStyle={theme.name === 'dark' ? 'light-content' : 'dark-content'} backgroundColor={theme.colors.background} />
       
       <View style={[styles.summaryCard, { backgroundColor: theme.colors.surface }]}>
-        <Text style={[styles.summaryLabel, { color: theme.colors.textSecondary }]}>Total Assets</Text>
+        <Text style={[styles.summaryLabel, { color: theme.colors.textSecondary }]}>{t.assets.totalAssets}</Text>
         <Text style={[styles.summaryValue, { color: theme.colors.text }]}>₹15,45,000</Text>
         <Text style={[styles.summaryChange, { color: theme.colors.success }]}>+8.2% this month</Text>
       </View>

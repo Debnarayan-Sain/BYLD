@@ -7,54 +7,56 @@ import { ArrowLeft, Calculator, TrendingUp, PiggyBank, CreditCard, Home, Target 
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 
-const calculators = [
-  {
-    id: 'sip',
-    icon: TrendingUp,
-    title: 'SIP Calculator',
-    subtitle: 'Systematic Investment Plan',
-    color: '#38a169',
-  },
-  {
-    id: 'stp',
-    icon: Calculator,
-    title: 'STP Calculator',
-    subtitle: 'Systematic Transfer Plan',
-    color: '#4299e1',
-  },
-  {
-    id: 'swp',
-    icon: PiggyBank,
-    title: 'SWP Calculator',
-    subtitle: 'Systematic Withdrawal Plan',
-    color: '#ed8936',
-  },
-  {
-    id: 'lumpsum',
-    icon: Target,
-    title: 'Lumpsum Calculator',
-    subtitle: 'One-time Investment',
-    color: '#9f7aea',
-  },
-  {
-    id: 'emi',
-    icon: CreditCard,
-    title: 'EMI Calculator',
-    subtitle: 'Loan EMI Calculator',
-    color: '#e53e3e',
-  },
-  {
-    id: 'retirement',
-    icon: Home,
-    title: 'Retirement Calculator',
-    subtitle: 'Plan your retirement',
-    color: '#38b2ac',
-  },
-];
+
 
 export default function CalculatorsScreen() {
   const { theme } = useTheme();
   const { t } = useLanguage();
+
+  const calculators = [
+    {
+      id: 'sip',
+      icon: TrendingUp,
+      title: t.calculators.sip,
+      subtitle: 'Systematic Investment Plan',
+      color: '#38a169',
+    },
+    {
+      id: 'stp',
+      icon: Calculator,
+      title: t.calculators.stp,
+      subtitle: 'Systematic Transfer Plan',
+      color: '#4299e1',
+    },
+    {
+      id: 'swp',
+      icon: PiggyBank,
+      title: t.calculators.swp,
+      subtitle: 'Systematic Withdrawal Plan',
+      color: '#ed8936',
+    },
+    {
+      id: 'lumpsum',
+      icon: Target,
+      title: t.calculators.lumpsum,
+      subtitle: 'One-time Investment',
+      color: '#9f7aea',
+    },
+    {
+      id: 'emi',
+      icon: CreditCard,
+      title: t.calculators.emi,
+      subtitle: 'Loan EMI Calculator',
+      color: '#e53e3e',
+    },
+    {
+      id: 'retirement',
+      icon: Home,
+      title: t.calculators.retirement,
+      subtitle: 'Plan your retirement',
+      color: '#38b2ac',
+    },
+  ];
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(30)).current;
 

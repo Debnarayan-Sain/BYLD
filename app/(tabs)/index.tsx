@@ -44,32 +44,32 @@ interface AssetCategory {
 
 export default function DashboardScreen() {
   const { theme } = useTheme();
-  useLanguage();
+  const { t } = useLanguage();
   const [showHamburgerMenu, setShowHamburgerMenu] = useState(false);
 
   const [assetCategories] = useState<AssetCategory[]>([
     {
       id: 'assets',
-      title: 'Assets',
+      title: t.dashboard.assets,
       totalValue: '₹15,45,000',
       isExpanded: false,
       items: [
-        { id: 'bank', name: 'Bank Accounts', icon: Banknote, value: '₹2,50,000', change: '+2.5%', isPositive: true },
+        { id: 'bank', name: t.assets.bankAccounts, icon: Banknote, value: '₹2,50,000', change: '+2.5%', isPositive: true },
         { id: 'deposits', name: 'Deposits', icon: PiggyBank, value: '₹5,00,000', change: '+4.2%', isPositive: true },
-        { id: 'mutual_funds', name: 'Mutual Funds', icon: TrendingUp, value: '₹3,25,000', change: '+12.8%', isPositive: true },
-        { id: 'equity', name: 'Equity', icon: BarChart3, value: '₹2,15,000', change: '-3.2%', isPositive: false },
+        { id: 'mutual_funds', name: t.assets.mutualFunds, icon: TrendingUp, value: '₹3,25,000', change: '+12.8%', isPositive: true },
+        { id: 'equity', name: t.assets.stocks, icon: BarChart3, value: '₹2,15,000', change: '-3.2%', isPositive: false },
         { id: 'pms', name: 'PMS', icon: Briefcase, value: '₹1,50,000', change: '+8.5%', isPositive: true },
         { id: 'aif', name: 'AIF', icon: Building, value: '₹75,000', change: '+6.1%', isPositive: true },
-        { id: 'bonds', name: 'Bonds', icon: Landmark, value: '₹50,000', change: '+3.8%', isPositive: true },
-        { id: 'real_estate', name: 'Real Estate', icon: HomeIcon, value: '₹25,00,000', change: '+15.2%', isPositive: true },
+        { id: 'bonds', name: t.assets.bonds, icon: Landmark, value: '₹50,000', change: '+3.8%', isPositive: true },
+        { id: 'real_estate', name: t.assets.realEstate, icon: HomeIcon, value: '₹25,00,000', change: '+15.2%', isPositive: true },
         { id: 'commodities', name: 'Commodities', icon: Coins, value: '₹35,000', change: '-1.5%', isPositive: false },
         { id: 'equity_unlisted', name: 'Equity (Unlisted)', icon: BarChart3, value: '₹1,25,000', change: '+22.3%', isPositive: true },
-        { id: 'others', name: 'Others', icon: Briefcase, value: '₹45,000', change: '+5.7%', isPositive: true },
+        { id: 'others', name: t.assets.others, icon: Briefcase, value: '₹45,000', change: '+5.7%', isPositive: true },
       ]
     },
     {
       id: 'security',
-      title: 'Security',
+      title: t.dashboard.security,
       totalValue: '₹8,50,000',
       isExpanded: false,
       items: [
@@ -78,7 +78,7 @@ export default function DashboardScreen() {
     },
     {
       id: 'liabilities',
-      title: 'Liabilities',
+      title: t.dashboard.liabilities,
       totalValue: '₹12,75,000',
       isExpanded: false,
       items: [
@@ -87,20 +87,20 @@ export default function DashboardScreen() {
     },
     {
       id: 'goals',
-      title: 'Goals',
+      title: t.dashboard.goals,
       totalValue: '5 Active',
       isExpanded: false,
       items: [
-        { id: 'retirement', name: 'Retirement', icon: Target, value: '₹2,00,00,000', change: '65%', isPositive: true },
-        { id: 'house', name: 'Dream House', icon: HomeIcon, value: '₹1,50,00,000', change: '45%', isPositive: true },
-        { id: 'education', name: 'Child Education', icon: BookOpen, value: '₹50,00,000', change: '78%', isPositive: true },
-        { id: 'vacation', name: 'World Tour', icon: Target, value: '₹10,00,000', change: '32%', isPositive: true },
-        { id: 'emergency', name: 'Emergency Fund', icon: Shield, value: '₹15,00,000', change: '90%', isPositive: true },
+        { id: 'retirement', name: t.goals.retirement, icon: Target, value: '₹2,00,00,000', change: '65%', isPositive: true },
+        { id: 'house', name: t.goals.house, icon: HomeIcon, value: '₹1,50,00,000', change: '45%', isPositive: true },
+        { id: 'education', name: t.goals.education, icon: BookOpen, value: '₹50,00,000', change: '78%', isPositive: true },
+        { id: 'vacation', name: t.goals.vacation, icon: Target, value: '₹10,00,000', change: '32%', isPositive: true },
+        { id: 'emergency', name: t.goals.emergency, icon: Shield, value: '₹15,00,000', change: '90%', isPositive: true },
       ]
     },
     {
       id: 'education',
-      title: 'Education',
+      title: t.dashboard.education,
       totalValue: '12 Articles',
       isExpanded: false,
       items: [
@@ -232,7 +232,7 @@ export default function DashboardScreen() {
           >
             <View style={styles.netWorthHeader}>
               <Text style={[styles.netWorthLabel, { color: theme.colors.textSecondary }]}>
-                Total Portfolio Value
+                {t.dashboard.totalValue}
               </Text>
               <View style={[styles.trendIcon, { backgroundColor: theme.colors.success + '20' }]}>
                 <TrendingUp size={16} color={theme.colors.success} />
@@ -400,22 +400,22 @@ export default function DashboardScreen() {
             <View style={styles.menuItems}>
               <TouchableOpacity style={styles.menuItem}>
                 <Bell size={20} color={theme.colors.textSecondary} />
-                <Text style={[styles.menuItemText, { color: theme.colors.text }]}>Notifications</Text>
+                <Text style={[styles.menuItemText, { color: theme.colors.text }]}>{t.settings.notifications}</Text>
               </TouchableOpacity>
               
               <TouchableOpacity style={styles.menuItem}>
                 <Settings size={20} color={theme.colors.textSecondary} />
-                <Text style={[styles.menuItemText, { color: theme.colors.text }]}>Settings</Text>
+                <Text style={[styles.menuItemText, { color: theme.colors.text }]}>{t.settings.title}</Text>
               </TouchableOpacity>
               
               <TouchableOpacity style={styles.menuItem}>
                 <HelpCircle size={20} color={theme.colors.textSecondary} />
-                <Text style={[styles.menuItemText, { color: theme.colors.text }]}>Help & Support</Text>
+                <Text style={[styles.menuItemText, { color: theme.colors.text }]}>{t.settings.help}</Text>
               </TouchableOpacity>
               
               <TouchableOpacity style={styles.menuItem} onPress={handleLogout}>
                 <LogOut size={20} color={theme.colors.error} />
-                <Text style={[styles.menuItemText, { color: theme.colors.error }]}>Logout</Text>
+                <Text style={[styles.menuItemText, { color: theme.colors.error }]}>{t.settings.logout}</Text>
               </TouchableOpacity>
             </View>
           </View>
