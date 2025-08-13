@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Stack } from 'expo-router';
-import { BarChart3, Shield, AlertTriangle, Target } from 'lucide-react-native';
+import { BarChart3, Shield, AlertTriangle, Target, ChevronLeft } from 'lucide-react-native';
 import { useTheme } from '@/contexts/ThemeContext';
 
 type RiskLevel = 'conservative' | 'balanced' | 'growth' | 'highGrowth';
@@ -124,7 +124,8 @@ export default function RiskProfileScreen() {
   const [riskLevel, setRiskLevel] = useState<RiskLevel>('conservative');
 
   const handleAnswer = (score: number) => {
-    const newAnswers = [...answers, score];
+    const newAnswers = [...answers];
+    newAnswers[currentQuestion] = score;
     setAnswers(newAnswers);
 
     if (currentQuestion < questions.length - 1) {
@@ -134,6 +135,12 @@ export default function RiskProfileScreen() {
       const calculatedRiskLevel = getRiskLevel(totalScore);
       setRiskLevel(calculatedRiskLevel);
       setShowResult(true);
+    }
+  };
+
+  const handlePrevious = () => {
+    if (currentQuestion > 0) {
+      setCurrentQuestion(currentQuestion - 1);
     }
   };
 
@@ -265,25 +272,43 @@ export default function RiskProfileScreen() {
           </Text>
 
           <View style={styles.optionsContainer}>
-            {question.options.map((option, index) => (
-              <TouchableOpacity
-                key={index}
-                style={[
-                  styles.optionButton,
-                  { 
-                    backgroundColor: theme.colors.background,
-                    borderColor: theme.colors.border
-                  }
-                ]}
-                onPress={() => handleAnswer(option.score)}
-              >
-                <Text style={[styles.optionText, { color: theme.colors.text }]}>
-                  {option.text}
-                </Text>
-              </TouchableOpacity>
-            ))}
+            {question.options.map((option, index) => {
+              const isSelected = answers[currentQuestion] === option.score;
+              return (
+                <TouchableOpacity
+                  key={index}
+                  style={[
+                    styles.optionButton,
+                    { 
+                      backgroundColor: isSelected ? theme.colors.primary + '20' : theme.colors.background,
+                      borderColor: isSelected ? theme.colors.primary : theme.colors.border,
+                      borderWidth: isSelected ? 2 : 1
+                    }
+                  ]}
+                  onPress={() => handleAnswer(option.score)}
+                >
+                  <Text style={[styles.optionText, { color: isSelected ? theme.colors.primary : theme.colors.text }]}>
+                    {option.text}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
           </View>
         </View>
+
+        {currentQuestion > 0 && (
+          <View style={styles.navigationContainer}>
+            <TouchableOpacity
+              style={[styles.previousButton, { borderColor: theme.colors.border }]}
+              onPress={handlePrevious}
+            >
+              <ChevronLeft size={20} color={theme.colors.text} />
+              <Text style={[styles.previousButtonText, { color: theme.colors.text }]}>
+                Previous
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
 
         <View style={styles.bottomSpacing} />
       </ScrollView>
@@ -415,5 +440,22 @@ const styles = StyleSheet.create({
   },
   bottomSpacing: {
     height: 32,
+  },
+  navigationContainer: {
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+  },
+  previousButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+    gap: 8,
+  },
+  previousButtonText: {
+    fontSize: 16,
+    fontWeight: '500',
   },
 });
