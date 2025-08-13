@@ -67,10 +67,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 12,
     paddingHorizontal: 16,
+    paddingVertical: 0,
     fontSize: 16,
-    height: 50, // fixed height for alignment
-    textAlignVertical: 'center', // vertical align (Android)
-    lineHeight: 22, // makes text & placeholder consistent
+    height: 50,
+    textAlignVertical: 'center',
+    includeFontPadding: false,
   },
   error: {
     fontSize: 12,
@@ -84,6 +85,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     textAlign: 'left',
     textAlignVertical: 'center',
-    lineHeight: 22,
+    paddingVertical: 0,
+    includeFontPadding: false,
   },
 });
