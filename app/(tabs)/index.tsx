@@ -113,7 +113,7 @@ export default function DashboardScreen() {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(30)).current;
 
-  const customerName = "Debnarayan Sain";
+  const customerName = "9845098450";
   const netWorth = "₹36,20,000";
   const netWorthChange = "+8.5%";
 
