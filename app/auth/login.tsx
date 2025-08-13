@@ -107,7 +107,13 @@ export default function LoginScreen() {
                   resizeMode="contain"
                 />
               </View>
-              </Animated.View>
+              <Text style={[styles.brandSubtitle, { color: theme.colors.textSecondary }]}>Portfolio Management</Text>
+              <View style={styles.brandAccent}>
+                <View style={[styles.accentDot, { backgroundColor: theme.colors.primary }]} />
+                <View style={[styles.accentDot, { backgroundColor: theme.colors.secondary }]} />
+                <View style={[styles.accentDot, { backgroundColor: theme.colors.accent }]} />
+              </View>
+            </Animated.View>
 
             {/* Login Card */}
             <Animated.View
