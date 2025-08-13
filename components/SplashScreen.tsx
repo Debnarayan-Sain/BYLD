@@ -182,7 +182,7 @@ export default function SplashScreen({ onFinish }: SplashScreenProps) {
             ]}
           >
             <Image 
-              source={{ uri: 'https://r2-pub.rork.com/attachments/1ycwceab6aoy4ed4j3ib4' }}
+              source={{ uri: 'https://r2-pub.rork.com/attachments/7ka3kuswj9ooq10usjf8y' }}
               style={styles.logoImage}
               resizeMode="contain"
             />
