@@ -192,7 +192,6 @@ export default function SplashScreen({ onFinish }: SplashScreenProps) {
           <Text style={[styles.tagline, { color: theme.colors.text }]}>
             Portfolio Management
           </Text>
-          
           <Text style={[styles.subtitle, { color: theme.colors.textSecondary }]}>
             Build Your Legacy Daily
           </Text>
@@ -250,7 +249,8 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     letterSpacing: 1.5,
     opacity: 0.95,
-    marginBottom: 8,
+    marginTop: -10,
+    marginBottom: 4,
   },
   subtitle: {
     fontSize: 14,
