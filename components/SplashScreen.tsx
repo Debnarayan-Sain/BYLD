@@ -237,8 +237,8 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   logoImage: {
-    width: 120,
-    height: 120,
+    width: 160,
+    height: 160,
   },
   brandText: {
     fontSize: 32,
