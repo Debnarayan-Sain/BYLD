@@ -227,7 +227,7 @@ export default function DashboardScreen() {
         <View style={[styles.header, { backgroundColor: theme.colors.background }]}>
           <View style={styles.headerLeft}>
             <Text style={[styles.greeting, { color: theme.colors.textSecondary }]}>
-              {greeting}
+              &nbsp;&nbsp;&nbsp;{greeting}
             </Text>
             <View style={styles.customerNameContainer}>
               <Image 
