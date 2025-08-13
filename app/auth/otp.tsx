@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated, Touchab
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router, useLocalSearchParams } from 'expo-router';
-import { ArrowLeft, Phone, MessageSquare, Lock } from 'lucide-react-native';
+import { ArrowLeft, Phone, MessageSquare, Lock, CreditCard } from 'lucide-react-native';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Button from '@/components/Button';
@@ -43,7 +43,7 @@ const ProgressStep = ({ step, currentStep, icon: Icon, label, isCompleted }: {
       ]}>
         {label}
       </Text>
-      {step < 3 && (
+      {step < 4 && (
         <View style={[
           styles.stepConnector,
           {
@@ -163,6 +163,13 @@ export default function OTPScreen() {
               currentStep={2}
               icon={Lock}
               label="PIN"
+              isCompleted={false}
+            />
+            <ProgressStep
+              step={4}
+              currentStep={2}
+              icon={CreditCard}
+              label="PAN"
               isCompleted={false}
             />
           </View>
