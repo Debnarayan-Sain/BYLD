@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated, Alert } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
@@ -105,8 +105,9 @@ export default function SetPinScreen() {
   const isDark = theme.name === 'Dark Professional';
 
   return (
-    <View style={styles.container}>
-      <LinearGradient
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
+        <LinearGradient
         colors={isDark ? 
           [theme.colors.background, theme.colors.surface, theme.colors.primary + '20'] : 
           [theme.colors.background, theme.colors.surface, theme.colors.primary + '15']
@@ -255,8 +256,9 @@ export default function SetPinScreen() {
             </Animated.View>
           </ScrollView>
         </SafeAreaView>
-      </LinearGradient>
-    </View>
+        </LinearGradient>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 

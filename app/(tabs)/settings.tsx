@@ -193,7 +193,7 @@ export default function SettingsScreen() {
           <View style={[styles.section, { backgroundColor: theme.colors.surface }]}>
             <TouchableOpacity
               style={[styles.settingItem, styles.logoutItem]}
-              onPress={() => console.log('Logout pressed')}
+              onPress={() => router.replace('/auth/login')}
             >
               <View style={styles.settingLeft}>
                 <View style={[styles.iconContainer, { backgroundColor: theme.colors.error + '20' }]}>
