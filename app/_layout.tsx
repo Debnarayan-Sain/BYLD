@@ -21,6 +21,18 @@ function RootLayoutNav() {
       <Stack.Screen name="auth/otp" options={{ headerShown: false }} />
       <Stack.Screen name="auth/set-pin" options={{ headerShown: false }} />
       <Stack.Screen name="calculators/index" options={{ headerShown: false }} />
+      <Stack.Screen name="calculators/mf-calculator" options={{ headerShown: false }} />
+      <Stack.Screen name="calculators/sip-calculator" options={{ headerShown: false }} />
+      <Stack.Screen name="calculators/sip-topup-calculator" options={{ headerShown: false }} />
+      <Stack.Screen name="calculators/swp-calculator" options={{ headerShown: false }} />
+      <Stack.Screen name="calculators/sip-swp-calculator" options={{ headerShown: false }} />
+      <Stack.Screen name="calculators/fd-calculator" options={{ headerShown: false }} />
+      <Stack.Screen name="calculators/aif-calculator" options={{ headerShown: false }} />
+      <Stack.Screen name="calculators/lumpsum-calculator" options={{ headerShown: false }} />
+      <Stack.Screen name="calculators/education-calculator" options={{ headerShown: false }} />
+      <Stack.Screen name="calculators/marriage-calculator" options={{ headerShown: false }} />
+      <Stack.Screen name="calculators/retirement-calculator" options={{ headerShown: false }} />
+      <Stack.Screen name="calculators/future-value-calculator" options={{ headerShown: false }} />
       <Stack.Screen name="assets/index" options={{ headerShown: true }} />
       <Stack.Screen name="assets/bank-accounts" options={{ headerShown: true }} />
       <Stack.Screen name="liabilities" options={{ headerShown: true}} />
