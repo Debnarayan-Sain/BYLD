@@ -102,7 +102,7 @@ export default function LoginScreen() {
             >
               <View style={styles.logoContainer}>
                 <Image 
-                  source={{ uri: 'https://r2-pub.rork.com/attachments/eb5lv7s36z8vyrldi0jc5' }}
+                  source={{ uri: 'https://r2-pub.rork.com/attachments/1ycwceab6aoy4ed4j3ib4' }}
                   style={styles.logoImage}
                   resizeMode="contain"
                 />
