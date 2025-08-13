@@ -34,7 +34,22 @@ export const themes: Record<string, Theme> = {
       warning: '#F59E0B',
     },
   },
-
+  dark: {
+    name: 'Dark Professional',
+    colors: {
+      primary: '#3B82F6',
+      secondary: '#10B981',
+      accent: '#F97316',
+      background: '#0F172A',
+      surface: '#1E293B',
+      text: '#F1F5F9',
+      textSecondary: '#94A3B8',
+      border: '#334155',
+      success: '#22C55E',
+      error: '#EF4444',
+      warning: '#F59E0B',
+    },
+  },
   green: {
     name: 'Wealth Green',
     colors: {
