@@ -107,7 +107,7 @@ export default function LoginScreen() {
                   resizeMode="contain"
                 />
               </View>
-              <Text style={[styles.brandSubtitle, { color: theme.colors.textSecondary }]}>Portfolio Management</Text>
+              <Text style={[styles.brandSubtitle, { color: theme.colors.textSecondary }]}>Wealth Management</Text>
               <View style={styles.brandAccent}>
                 <View style={[styles.accentDot, { backgroundColor: theme.colors.primary }]} />
                 <View style={[styles.accentDot, { backgroundColor: theme.colors.secondary }]} />
