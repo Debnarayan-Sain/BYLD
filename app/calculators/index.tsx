@@ -123,7 +123,7 @@ export default function CalculatorsScreen() {
 
   const handleCalculatorPress = (calculatorId: string) => {
     console.log('Calculator pressed:', calculatorId);
-    router.replace(`/calculators/${calculatorId}` as any);
+    router.push(`/calculators/${calculatorId}` as any);
   };
 
   return (
