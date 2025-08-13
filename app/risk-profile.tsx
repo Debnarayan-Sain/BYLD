@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Stack } from 'expo-router';
-import { TrendingUp, BarChart3, Shield, AlertTriangle, Target } from 'lucide-react-native';
+import { BarChart3, Shield, AlertTriangle, Target } from 'lucide-react-native';
 import { useTheme } from '@/contexts/ThemeContext';
 
-type RiskLevel = 'conservative' | 'moderate' | 'balanced' | 'growth' | 'aggressive';
+type RiskLevel = 'conservative' | 'balanced' | 'growth' | 'highGrowth';
 
 interface Question {
   id: number;
@@ -19,57 +19,52 @@ interface Question {
 const questions: Question[] = [
   {
     id: 1,
-    question: "What is your investment time horizon?",
+    question: "What is your age?",
     options: [
-      { text: "Less than 1 year", score: 1 },
-      { text: "1-3 years", score: 2 },
-      { text: "3-5 years", score: 3 },
-      { text: "5-10 years", score: 4 },
-      { text: "More than 10 years", score: 5 }
+      { text: "I am less than 40 yrs old", score: 6 },
+      { text: "I am between 40-55yrs old", score: 4 },
+      { text: "I am between 55-70 yrs old", score: 2 },
+      { text: "I am > 70 yrs old", score: 1 }
     ]
   },
   {
     id: 2,
-    question: "How would you react to a 20% drop in your portfolio value?",
+    question: "What best describes your income levels?",
     options: [
-      { text: "Sell everything immediately", score: 1 },
-      { text: "Sell some investments", score: 2 },
-      { text: "Hold and wait", score: 3 },
-      { text: "Buy more at lower prices", score: 4 },
-      { text: "Invest additional funds", score: 5 }
+      { text: "I expect my income to increase at a high rate", score: 6 },
+      { text: "I expect my income to remain steady", score: 4 },
+      { text: "I do not have a fixed monthly income", score: 2 },
+      { text: "I am retired and /or do not have a source of income", score: 1 }
     ]
   },
   {
     id: 3,
-    question: "What percentage of your income can you invest?",
+    question: "What is your investment horizon and when do you plan to start withdrawing money from the portfolio?",
     options: [
-      { text: "Less than 5%", score: 1 },
-      { text: "5-10%", score: 2 },
-      { text: "10-20%", score: 3 },
-      { text: "20-30%", score: 4 },
-      { text: "More than 30%", score: 5 }
+      { text: "Less than 1 year", score: 1 },
+      { text: "From 1-3 years", score: 2 },
+      { text: "Between 3-5 years", score: 3 },
+      { text: "More than 5 years", score: 4 }
     ]
   },
   {
     id: 4,
-    question: "What is your primary investment goal?",
+    question: "If a few months after investing, the value of your investments declines by 20%, what would you do?",
     options: [
-      { text: "Capital preservation", score: 1 },
-      { text: "Steady income", score: 2 },
-      { text: "Balanced growth", score: 3 },
-      { text: "Long-term growth", score: 4 },
-      { text: "Maximum returns", score: 5 }
+      { text: "Cut losses immediately and liquidate all investments. Capital preservation is paramount.", score: 1 },
+      { text: "I would be worried, but would give my investments a little more time.", score: 2 },
+      { text: "I will be ok with volatility and accept decline in portfolio value as a part of investing. I would keep my investments as they are.", score: 3 },
+      { text: "I would add to my investments. I am confident about my investments and will not be worried by notional losses.", score: 4 }
     ]
   },
   {
     id: 5,
-    question: "How much investment experience do you have?",
+    question: "Your investment knowledge is best described as:",
     options: [
-      { text: "No experience", score: 1 },
-      { text: "Basic knowledge", score: 2 },
-      { text: "Some experience", score: 3 },
-      { text: "Experienced investor", score: 4 },
-      { text: "Professional level", score: 5 }
+      { text: "Limited: I have little/no investment knowledge beyond traditional bank savings accounts and fixed deposits.", score: 1 },
+      { text: "Moderate: I have knowledge and understanding of financial products beyond traditional investments and am aware of related risks.", score: 2 },
+      { text: "Advanced: I have sufficient understanding of various financial products and am a regular investor.", score: 3 },
+      { text: "Extensive: I have extensive knowledge and understanding of investment products, and am an active and experienced investor comfortable making my own investment decisions.", score: 4 }
     ]
   }
 ];
@@ -77,57 +72,48 @@ const questions: Question[] = [
 const riskProfiles = {
   conservative: {
     name: 'Conservative',
-    description: 'Low risk, stable returns',
+    description: 'You are an investor who is prepared to accept lower returns with lower levels of risk in order to preserve your capital.',
     icon: Shield,
     color: '#059669',
-    allocation: 'Bonds: 70%, Stocks: 20%, Cash: 10%',
-    expectedReturn: '4-6% annually',
+    allocation: 'DEBT: 80%, EQUITY: 20%',
+    expectedReturn: 'Lower returns with capital preservation',
     volatility: 'Low'
-  },
-  moderate: {
-    name: 'Moderate',
-    description: 'Balanced risk and return',
-    icon: TrendingUp,
-    color: '#0066CC',
-    allocation: 'Bonds: 50%, Stocks: 40%, Cash: 10%',
-    expectedReturn: '6-8% annually',
-    volatility: 'Low to Medium'
   },
   balanced: {
     name: 'Balanced',
-    description: 'Equal risk and growth focus',
+    description: 'You are an investor who would like to invest in both income and growth assets. You will be comfortable with calculated risks to achieve good returns.',
     icon: BarChart3,
     color: '#7C3AED',
-    allocation: 'Bonds: 40%, Stocks: 50%, Alternatives: 10%',
-    expectedReturn: '7-9% annually',
+    allocation: 'DEBT: 50%, EQUITY: 50%',
+    expectedReturn: 'Balanced returns with calculated risks',
     volatility: 'Medium'
   },
   growth: {
     name: 'Growth',
-    description: 'Higher risk for better returns',
+    description: 'You are an investor who is comfortable with a high volatility and high level of risk in order to achieve higher returns over long term. Your objective is to accumulate assets over long term by primarily investing in growth assets.',
     icon: Target,
     color: '#DC2626',
-    allocation: 'Stocks: 70%, Bonds: 20%, Alternatives: 10%',
-    expectedReturn: '8-12% annually',
-    volatility: 'Medium to High'
+    allocation: 'DEBT: 30%, EQUITY: 70%',
+    expectedReturn: 'Higher returns over long term',
+    volatility: 'High'
   },
-  aggressive: {
-    name: 'Aggressive',
-    description: 'High risk, high reward',
+  highGrowth: {
+    name: 'High Growth',
+    description: 'You are an investor who is comfortable with a higher level of risk in order to achieve potentially higher returns. Capital security is secondary to potential wealth accumulation.',
     icon: AlertTriangle,
     color: '#EA580C',
-    allocation: 'Stocks: 80%, Alternatives: 15%, Cash: 5%',
-    expectedReturn: '10-15% annually',
-    volatility: 'High'
+    allocation: 'DEBT: 10%, EQUITY: 90%',
+    expectedReturn: 'Potentially higher returns with wealth accumulation focus',
+    volatility: 'Very High'
   }
 };
 
 function getRiskLevel(score: number): RiskLevel {
-  if (score <= 10) return 'conservative';
-  if (score <= 15) return 'moderate';
-  if (score <= 20) return 'balanced';
-  if (score <= 23) return 'growth';
-  return 'aggressive';
+  if (score >= 6 && score <= 10) return 'conservative';
+  if (score >= 11 && score <= 20) return 'balanced';
+  if (score >= 21 && score <= 24) return 'growth';
+  if (score >= 25 && score <= 28) return 'highGrowth';
+  return 'conservative';
 }
 
 export default function RiskProfileScreen() {
