@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated, Alert, 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
-import { ArrowLeft, Phone, MessageSquare, Lock, Eye, EyeOff } from 'lucide-react-native';
+import { ArrowLeft, Phone, MessageSquare, Lock, Eye, EyeOff, CreditCard } from 'lucide-react-native';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import Button from '@/components/Button';
@@ -43,7 +43,7 @@ const ProgressStep = ({ step, currentStep, icon: Icon, label, isCompleted }: {
       ]}>
         {label}
       </Text>
-      {step < 3 && (
+      {step < 4 && (
         <View style={[
           styles.stepConnector,
           {
@@ -58,8 +58,10 @@ const ProgressStep = ({ step, currentStep, icon: Icon, label, isCompleted }: {
 export default function SetPinScreen() {
   const { theme } = useTheme();
   useLanguage();
+  const [currentStep, setCurrentStep] = useState<'pin' | 'pan'>('pin');
   const [pin, setPin] = useState('');
   const [confirmPin, setConfirmPin] = useState('');
+  const [panCard, setPanCard] = useState('');
   const [loading, setLoading] = useState(false);
   const [showPin, setShowPin] = useState(false);
   const [showConfirmPin, setShowConfirmPin] = useState(false);
@@ -93,15 +95,54 @@ export default function SetPinScreen() {
     // Simulate API call
     setTimeout(() => {
       setLoading(false);
+      setCurrentStep('pan');
+    }, 1500);
+  };
+
+  const handleSetPanCard = async () => {
+    if (!panCard || panCard.length !== 10) {
+      Alert.alert('Error', 'Please enter a valid 10-digit PAN card number');
+      return;
+    }
+    
+    setLoading(true);
+    // Simulate API call
+    setTimeout(() => {
+      setLoading(false);
       router.replace('/(tabs)');
     }, 1500);
+  };
+
+  const validatePanCard = (text: string) => {
+    // Remove spaces and convert to uppercase
+    const cleanText = text.replace(/\s/g, '').toUpperCase();
+    // PAN card format: 5 letters, 4 digits, 1 letter
+    const panRegex = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+    return panRegex.test(cleanText);
+  };
+
+  const formatPanCard = (text: string) => {
+    // Remove spaces and convert to uppercase
+    const cleanText = text.replace(/\s/g, '').toUpperCase();
+    // Add spaces for better readability: ABCDE 1234 F
+    if (cleanText.length <= 5) return cleanText;
+    if (cleanText.length <= 9) return cleanText.slice(0, 5) + ' ' + cleanText.slice(5);
+    return cleanText.slice(0, 5) + ' ' + cleanText.slice(5, 9) + ' ' + cleanText.slice(9);
+  };
+
+  const handlePanCardChange = (text: string) => {
+    const formatted = formatPanCard(text);
+    if (formatted.replace(/\s/g, '').length <= 10) {
+      setPanCard(formatted);
+    }
   };
 
   const handleBack = () => {
     router.back();
   };
 
-  const isValid = pin.length >= 4 && confirmPin.length >= 4 && pin === confirmPin;
+  const isPinValid = pin.length >= 4 && confirmPin.length >= 4 && pin === confirmPin;
+  const isPanValid = validatePanCard(panCard);
   const isDark = theme.name === 'Dark Professional';
 
   return (
@@ -122,7 +163,9 @@ export default function SetPinScreen() {
             <TouchableOpacity onPress={handleBack} style={styles.backButton}>
               <ArrowLeft size={24} color={theme.colors.text} />
             </TouchableOpacity>
-            <Text style={[styles.headerTitle, { color: theme.colors.text }]}>Set PIN</Text>
+            <Text style={[styles.headerTitle, { color: theme.colors.text }]}>
+              {currentStep === 'pin' ? 'Set PIN' : 'PAN Card'}
+            </Text>
             <View style={styles.placeholder} />
           </View>
 
@@ -130,23 +173,30 @@ export default function SetPinScreen() {
           <View style={styles.progressContainer}>
             <ProgressStep
               step={1}
-              currentStep={3}
+              currentStep={currentStep === 'pin' ? 3 : 4}
               icon={Phone}
               label="Mobile"
               isCompleted={true}
             />
             <ProgressStep
               step={2}
-              currentStep={3}
+              currentStep={currentStep === 'pin' ? 3 : 4}
               icon={MessageSquare}
               label="OTP"
               isCompleted={true}
             />
             <ProgressStep
               step={3}
-              currentStep={3}
+              currentStep={currentStep === 'pin' ? 3 : 4}
               icon={Lock}
               label="PIN"
+              isCompleted={currentStep === 'pan'}
+            />
+            <ProgressStep
+              step={4}
+              currentStep={currentStep === 'pin' ? 3 : 4}
+              icon={CreditCard}
+              label="PAN"
               isCompleted={false}
             />
           </View>
@@ -164,93 +214,152 @@ export default function SetPinScreen() {
               {/* Main Card */}
               <View style={[styles.mainCard, { backgroundColor: theme.colors.surface }]}>
                 <View style={styles.cardContent}>
-                  <Text style={[styles.title, { color: theme.colors.text }]}>
-                    Create Your PIN
-                  </Text>
-                  <Text style={[styles.subtitle, { color: theme.colors.textSecondary }]}>
-                    Set a secure 6-digit PIN to protect your account
-                  </Text>
+                  {currentStep === 'pin' ? (
+                    <>
+                      <Text style={[styles.title, { color: theme.colors.text }]}>
+                        Create Your PIN
+                      </Text>
+                      <Text style={[styles.subtitle, { color: theme.colors.textSecondary }]}>
+                        Set a secure 6-digit PIN to protect your account
+                      </Text>
 
-                  {/* PIN Input */}
-                  <View style={styles.inputGroup}>
-                    <View style={[styles.inputContainer, { borderColor: theme.colors.border }]}>
-                      <View style={[styles.inputIcon, { backgroundColor: theme.colors.primary + '15' }]}>
-                        <Lock size={20} color={theme.colors.primary} />
+                      {/* PIN Input */}
+                      <View style={styles.inputGroup}>
+                        <View style={[styles.inputContainer, { borderColor: theme.colors.border }]}>
+                          <View style={[styles.inputIcon, { backgroundColor: theme.colors.primary + '15' }]}>
+                            <Lock size={20} color={theme.colors.primary} />
+                          </View>
+                          <View style={styles.inputField}>
+                            <Text style={[styles.inputLabel, { color: theme.colors.textSecondary }]}>Enter PIN</Text>
+                            <Input
+                              value={pin}
+                              onChangeText={setPin}
+                              secureTextEntry={!showPin}
+                              keyboardType="numeric"
+                              placeholder="Enter 6-digit PIN"
+                              maxLength={6}
+                              style={styles.input}
+                              testID="pin-input"
+                            />
+                          </View>
+                          <TouchableOpacity
+                            style={styles.eyeIcon}
+                            onPress={() => setShowPin(!showPin)}
+                          >
+                            {showPin ? (
+                              <EyeOff size={20} color={theme.colors.textSecondary} />
+                            ) : (
+                              <Eye size={20} color={theme.colors.textSecondary} />
+                            )}
+                          </TouchableOpacity>
+                        </View>
                       </View>
-                      <View style={styles.inputField}>
-                        <Text style={[styles.inputLabel, { color: theme.colors.textSecondary }]}>Enter PIN</Text>
-                        <Input
-                          value={pin}
-                          onChangeText={setPin}
-                          secureTextEntry={!showPin}
-                          keyboardType="numeric"
-                          placeholder="Enter 6-digit PIN"
-                          maxLength={6}
-                          style={styles.input}
-                          testID="pin-input"
-                        />
-                      </View>
-                      <TouchableOpacity
-                        style={styles.eyeIcon}
-                        onPress={() => setShowPin(!showPin)}
-                      >
-                        {showPin ? (
-                          <EyeOff size={20} color={theme.colors.textSecondary} />
-                        ) : (
-                          <Eye size={20} color={theme.colors.textSecondary} />
+
+                      {/* Confirm PIN Input */}
+                      <View style={styles.inputGroup}>
+                        <View style={[
+                          styles.inputContainer, 
+                          { 
+                            borderColor: confirmPin && pin !== confirmPin ? '#ff4757' : theme.colors.border 
+                          }
+                        ]}>
+                          <View style={[styles.inputIcon, { backgroundColor: theme.colors.primary + '15' }]}>
+                            <Lock size={20} color={theme.colors.primary} />
+                          </View>
+                          <View style={styles.inputField}>
+                            <Text style={[styles.inputLabel, { color: theme.colors.textSecondary }]}>Confirm PIN</Text>
+                            <Input
+                              value={confirmPin}
+                              onChangeText={setConfirmPin}
+                              secureTextEntry={!showConfirmPin}
+                              keyboardType="numeric"
+                              placeholder="Confirm your PIN"
+                              maxLength={6}
+                              style={styles.input}
+                              testID="confirm-pin-input"
+                            />
+                          </View>
+                          <TouchableOpacity
+                            style={styles.eyeIcon}
+                            onPress={() => setShowConfirmPin(!showConfirmPin)}
+                          >
+                            {showConfirmPin ? (
+                              <EyeOff size={20} color={theme.colors.textSecondary} />
+                            ) : (
+                              <Eye size={20} color={theme.colors.textSecondary} />
+                            )}
+                          </TouchableOpacity>
+                        </View>
+                        {confirmPin && pin !== confirmPin && (
+                          <Text style={styles.errorText}>PINs do not match</Text>
                         )}
-                      </TouchableOpacity>
-                    </View>
-                  </View>
+                      </View>
 
-                  {/* Confirm PIN Input */}
-                  <View style={styles.inputGroup}>
-                    <View style={[
-                      styles.inputContainer, 
-                      { 
-                        borderColor: confirmPin && pin !== confirmPin ? '#ff4757' : theme.colors.border 
-                      }
-                    ]}>
-                      <View style={[styles.inputIcon, { backgroundColor: theme.colors.primary + '15' }]}>
-                        <Lock size={20} color={theme.colors.primary} />
-                      </View>
-                      <View style={styles.inputField}>
-                        <Text style={[styles.inputLabel, { color: theme.colors.textSecondary }]}>Confirm PIN</Text>
-                        <Input
-                          value={confirmPin}
-                          onChangeText={setConfirmPin}
-                          secureTextEntry={!showConfirmPin}
-                          keyboardType="numeric"
-                          placeholder="Confirm your PIN"
-                          maxLength={6}
-                          style={styles.input}
-                          testID="confirm-pin-input"
-                        />
-                      </View>
-                      <TouchableOpacity
-                        style={styles.eyeIcon}
-                        onPress={() => setShowConfirmPin(!showConfirmPin)}
-                      >
-                        {showConfirmPin ? (
-                          <EyeOff size={20} color={theme.colors.textSecondary} />
-                        ) : (
-                          <Eye size={20} color={theme.colors.textSecondary} />
+                      <Button
+                        title="Continue"
+                        onPress={handleSetPin}
+                        loading={loading}
+                        disabled={!isPinValid}
+                        style={styles.continueButton}
+                        testID="continue-button"
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <Text style={[styles.title, { color: theme.colors.text }]}>
+                        Enter PAN Card
+                      </Text>
+                      <Text style={[styles.subtitle, { color: theme.colors.textSecondary }]}>
+                        Please enter your PAN card number for verification
+                      </Text>
+
+                      {/* PAN Card Input */}
+                      <View style={styles.inputGroup}>
+                        <View style={[
+                          styles.inputContainer, 
+                          { 
+                            borderColor: panCard && !isPanValid ? '#ff4757' : theme.colors.border 
+                          }
+                        ]}>
+                          <View style={[styles.inputIcon, { backgroundColor: theme.colors.primary + '15' }]}>
+                            <CreditCard size={20} color={theme.colors.primary} />
+                          </View>
+                          <View style={styles.inputField}>
+                            <Text style={[styles.inputLabel, { color: theme.colors.textSecondary }]}>PAN Card Number</Text>
+                            <Input
+                              value={panCard}
+                              onChangeText={handlePanCardChange}
+                              placeholder="ABCDE 1234 F"
+                              autoCapitalize="characters"
+                              style={styles.input}
+                              testID="pan-input"
+                            />
+                          </View>
+                        </View>
+                        {panCard && !isPanValid && (
+                          <Text style={styles.errorText}>Please enter a valid PAN card number</Text>
                         )}
-                      </TouchableOpacity>
-                    </View>
-                    {confirmPin && pin !== confirmPin && (
-                      <Text style={styles.errorText}>PINs do not match</Text>
-                    )}
-                  </View>
+                      </View>
 
-                  <Button
-                    title="Create Account"
-                    onPress={handleSetPin}
-                    loading={loading}
-                    disabled={!isValid}
-                    style={styles.continueButton}
-                    testID="continue-button"
-                  />
+                      <View style={styles.panInfoContainer}>
+                        <Text style={[styles.panInfoText, { color: theme.colors.textSecondary }]}>
+                          • PAN format: 5 letters, 4 digits, 1 letter
+                        </Text>
+                        <Text style={[styles.panInfoText, { color: theme.colors.textSecondary }]}>
+                          • Example: ABCDE1234F
+                        </Text>
+                      </View>
+
+                      <Button
+                        title="Create Account"
+                        onPress={handleSetPanCard}
+                        loading={loading}
+                        disabled={!isPanValid}
+                        style={styles.continueButton}
+                        testID="create-account-button"
+                      />
+                    </>
+                  )}
                 </View>
               </View>
             </Animated.View>
@@ -409,5 +518,16 @@ const styles = StyleSheet.create({
     marginTop: 24,
     borderRadius: 16,
     paddingVertical: 16,
+  },
+  panInfoContainer: {
+    backgroundColor: '#f0f8ff',
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 20,
+  },
+  panInfoText: {
+    fontSize: 14,
+    lineHeight: 20,
+    marginBottom: 4,
   },
 });
