@@ -57,7 +57,7 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="liability"
+        name="liablities"
         options={{
           title: "Liability",
           tabBarIcon: ({ color, size }) => <CreditCard size={size} color={color} />,
