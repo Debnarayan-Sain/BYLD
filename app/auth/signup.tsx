@@ -177,29 +177,15 @@ export default function SignupScreen() {
                   </Text>
 
                   <View style={styles.inputContainer}>
-                    <View style={[styles.phoneInputContainer, { 
-                      borderColor: theme.colors.border,
-                      backgroundColor: theme.colors.background
-                    }]}>
-                      <View style={[styles.countryCode, { 
-                        backgroundColor: theme.colors.surface,
-                        borderRightColor: theme.colors.border
-                      }]}>
-                        <Text style={[styles.countryCodeText, { color: theme.colors.text }]}>+91</Text>
-                      </View>
-                      <View style={styles.phoneInputField}>
-                        <Input
-                          value={mobile}
-                          onChangeText={setMobile}
-                          keyboardType="phone-pad"
-                          placeholder="Enter mobile number"
-                          maxLength={10}
-                          style={[styles.phoneInput, { color: theme.colors.text }]}
-                          testID="mobile-input"
-                          placeholderTextColor={theme.colors.textSecondary}
-                        />
-                      </View>
-                    </View>
+                    <Input
+                      value={mobile}
+                      onChangeText={setMobile}
+                      keyboardType="phone-pad"
+                      placeholder="Enter mobile number"
+                      maxLength={10}
+                      testID="mobile-input"
+                      style={styles.mobileInput}
+                    />
                   </View>
 
                   <Button
@@ -330,34 +316,9 @@ const styles = StyleSheet.create({
   inputContainer: {
     marginBottom: 32,
   },
-  phoneInputContainer: {
-    flexDirection: 'row',
-    borderWidth: 1.5,
-    borderRadius: 16,
-    overflow: 'hidden',
-  },
-  countryCode: {
-    paddingHorizontal: 16,
-    paddingVertical: 16,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRightWidth: 1,
-  },
-  countryCodeText: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  phoneInputField: {
-    flex: 1,
-    paddingHorizontal: 16,
-  },
-  phoneInput: {
+  mobileInput: {
     fontSize: 16,
     fontWeight: '500',
-    padding: 0,
-    margin: 0,
-    backgroundColor: 'transparent',
-    borderWidth: 0,
   },
   continueButton: {
     borderRadius: 16,

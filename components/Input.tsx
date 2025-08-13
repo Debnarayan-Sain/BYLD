@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     textAlign: 'left',
     textAlignVertical: 'center',
-    paddingVertical: 0,
+    paddingVertical: 15,
     includeFontPadding: false,
   },
 });
