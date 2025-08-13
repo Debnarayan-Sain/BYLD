@@ -54,6 +54,10 @@ export interface Translations {
     quickActions: string;
     recentTransactions: string;
     viewAll: string;
+    goodMorning: string;
+    goodAfternoon: string;
+    goodEvening: string;
+    goodNight: string;
   };
   portfolio: {
     title: string;
@@ -243,6 +247,10 @@ export const translations: Record<string, Translations> = {
       quickActions: 'Quick Actions',
       recentTransactions: 'Recent Transactions',
       viewAll: 'View All',
+      goodMorning: 'Good Morning',
+      goodAfternoon: 'Good Afternoon',
+      goodEvening: 'Good Evening',
+      goodNight: 'Good Night',
     },
     portfolio: {
       title: 'Portfolio',
@@ -430,6 +438,10 @@ export const translations: Record<string, Translations> = {
       quickActions: 'त्वरित कार्य',
       recentTransactions: 'हाल के लेनदेन',
       viewAll: 'सभी देखें',
+      goodMorning: 'सुप्रभात',
+      goodAfternoon: 'नमस्कार',
+      goodEvening: 'शुभ संध्या',
+      goodNight: 'शुभ रात्रि',
     },
     portfolio: {
       title: 'पोर्टफोलियो',
@@ -619,6 +631,10 @@ export const translations: Record<string, Translations> = {
       quickActions: 'விரைவு செயல்கள்',
       recentTransactions: 'சமீபத்திய பரிவர்த்தனைகள்',
       viewAll: 'அனைத்தையும் பார்க்கவும்',
+      goodMorning: 'காலை வணக்கம்',
+      goodAfternoon: 'மதிய வணக்கம்',
+      goodEvening: 'மாலை வணக்கம்',
+      goodNight: 'இரவு வணக்கம்',
     },
     portfolio: {
       title: 'போர்ட்ஃபோலியோ',

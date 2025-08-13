@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Animated, StatusBar, Modal, Image } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
@@ -46,6 +46,21 @@ export default function DashboardScreen() {
   const { theme } = useTheme();
   const { t } = useLanguage();
   const [showHamburgerMenu, setShowHamburgerMenu] = useState(false);
+  const [greeting, setGreeting] = useState<string>('');
+
+  const getTimeBasedGreeting = useCallback(() => {
+    const currentHour = new Date().getHours();
+    
+    if (currentHour >= 5 && currentHour < 12) {
+      return t.dashboard.goodMorning;
+    } else if (currentHour >= 12 && currentHour < 17) {
+      return t.dashboard.goodAfternoon;
+    } else if (currentHour >= 17 && currentHour < 21) {
+      return t.dashboard.goodEvening;
+    } else {
+      return t.dashboard.goodNight;
+    }
+  }, [t]);
 
   const [assetCategories] = useState<AssetCategory[]>([
     {
@@ -118,6 +133,8 @@ export default function DashboardScreen() {
   const netWorthChange = "+8.5%";
 
   useEffect(() => {
+    setGreeting(getTimeBasedGreeting());
+    
     Animated.parallel([
       Animated.timing(fadeAnim, {
         toValue: 1,
@@ -130,7 +147,14 @@ export default function DashboardScreen() {
         useNativeDriver: true,
       }),
     ]).start();
-  }, [fadeAnim, slideAnim]);
+
+    // Update greeting every minute
+    const interval = setInterval(() => {
+      setGreeting(getTimeBasedGreeting());
+    }, 60000);
+
+    return () => clearInterval(interval);
+  }, [fadeAnim, slideAnim, getTimeBasedGreeting]);
 
   const handleCategoryPress = (categoryId: string) => {
     switch (categoryId) {
@@ -203,7 +227,7 @@ export default function DashboardScreen() {
         <View style={[styles.header, { backgroundColor: theme.colors.background }]}>
           <View style={styles.headerLeft}>
             <Text style={[styles.greeting, { color: theme.colors.textSecondary }]}>
-              Good Morning
+              {greeting}
             </Text>
             <View style={styles.customerNameContainer}>
               <Image 
