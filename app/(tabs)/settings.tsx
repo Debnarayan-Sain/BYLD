@@ -1,16 +1,11 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Switch } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Moon, Sun, User, Bell, Shield, HelpCircle, LogOut, ChevronRight } from 'lucide-react-native';
+import { User, Bell, Shield, HelpCircle, LogOut, ChevronRight } from 'lucide-react-native';
 import { useTheme } from '@/contexts/ThemeContext';
 
 export default function SettingsScreen() {
   const { theme, changeTheme, availableThemes } = useTheme();
-  const isDark = theme.name === 'Dark Professional';
-
-  const handleThemeToggle = () => {
-    changeTheme(isDark ? 'default' : 'dark');
-  };
 
   const settingsOptions = [
     {
@@ -47,37 +42,7 @@ export default function SettingsScreen() {
         </View>
         
         <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
-          {/* Theme Section */}
-          <View style={[styles.section, { backgroundColor: theme.colors.surface }]}>
-            <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Appearance</Text>
-            
-            <View style={[styles.settingItem, { borderBottomColor: theme.colors.border }]}>
-              <View style={styles.settingLeft}>
-                <View style={[styles.iconContainer, { backgroundColor: theme.colors.primary + '20' }]}>
-                  {isDark ? (
-                    <Moon size={20} color={theme.colors.primary} />
-                  ) : (
-                    <Sun size={20} color={theme.colors.primary} />
-                  )}
-                </View>
-                <View style={styles.settingTextContainer}>
-                  <Text style={[styles.settingTitle, { color: theme.colors.text }]}>
-                    Dark Mode
-                  </Text>
-                  <Text style={[styles.settingSubtitle, { color: theme.colors.textSecondary }]}>
-                    {isDark ? 'Dark theme enabled' : 'Light theme enabled'}
-                  </Text>
-                </View>
-              </View>
-              <Switch
-                value={isDark}
-                onValueChange={handleThemeToggle}
-                trackColor={{ false: theme.colors.border, true: theme.colors.primary }}
-                thumbColor={isDark ? '#ffffff' : '#f4f3f4'}
-                testID="theme-toggle"
-              />
-            </View>
-          </View>
+
 
           {/* General Settings */}
           <View style={[styles.section, { backgroundColor: theme.colors.surface }]}>
@@ -117,7 +82,6 @@ export default function SettingsScreen() {
             
             {availableThemes.map((themeName, index) => {
               const isSelected = theme.name === (themeName === 'default' ? 'Professional Blue' : 
-                                themeName === 'dark' ? 'Dark Professional' :
                                 themeName === 'green' ? 'Wealth Green' : 'Premium Gold');
               
               return (
@@ -135,12 +99,10 @@ export default function SettingsScreen() {
                     <View style={[
                       styles.themeColorPreview,
                       { backgroundColor: themeName === 'default' ? '#0066CC' :
-                                        themeName === 'dark' ? '#3B82F6' :
                                         themeName === 'green' ? '#059669' : '#B45309' }
                     ]} />
                     <Text style={[styles.themeTitle, { color: theme.colors.text }]}>
                       {themeName === 'default' ? 'Professional Blue' :
-                       themeName === 'dark' ? 'Dark Professional' :
                        themeName === 'green' ? 'Wealth Green' : 'Premium Gold'}
                     </Text>
                   </View>
