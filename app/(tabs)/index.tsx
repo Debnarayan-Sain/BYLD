@@ -139,7 +139,7 @@ export default function DashboardScreen() {
   const [currentCarouselIndex, setCurrentCarouselIndex] = useState<number>(0);
   const carouselScrollRef = useRef<ScrollView>(null);
   const { width: screenWidth } = Dimensions.get('window');
-  const carouselItemWidth = screenWidth; // Full screen width
+  const carouselItemWidth = screenWidth - 40; // Screen width minus padding
 
   useEffect(() => {
     setGreeting(getTimeBasedGreeting());
@@ -269,14 +269,15 @@ export default function DashboardScreen() {
             pagingEnabled
             showsHorizontalScrollIndicator={false}
             onMomentumScrollEnd={(event) => {
-              const index = Math.round(event.nativeEvent.contentOffset.x / carouselItemWidth);
+              const index = Math.round(event.nativeEvent.contentOffset.x / (carouselItemWidth + 20));
               setCurrentCarouselIndex(index);
             }}
-            snapToInterval={carouselItemWidth}
+            snapToInterval={carouselItemWidth + 20}
             decelerationRate="fast"
+            contentContainerStyle={{ paddingRight: 20 }}
           >
             {/* Total Portfolio Card */}
-            <View style={[styles.carouselCard, { width: carouselItemWidth, backgroundColor: theme.colors.surface, marginHorizontal: 20 }]}>
+            <View style={[styles.carouselCard, { width: carouselItemWidth, backgroundColor: theme.colors.surface, marginLeft: 20, marginRight: 20 }]}>
               <LinearGradient
                 colors={[theme.colors.primary + '15', theme.colors.secondary + '10', theme.colors.surface]}
                 style={styles.carouselGradient}
@@ -311,7 +312,7 @@ export default function DashboardScreen() {
             </View>
 
             {/* Assets Card */}
-            <View style={[styles.carouselCard, { width: carouselItemWidth, backgroundColor: theme.colors.surface, marginHorizontal: 20 }]}>
+            <View style={[styles.carouselCard, { width: carouselItemWidth, backgroundColor: theme.colors.surface, marginLeft: 0, marginRight: 20 }]}>
               <LinearGradient
                 colors={[theme.colors.success + '15', theme.colors.primary + '10', theme.colors.surface]}
                 style={styles.carouselGradient}
@@ -346,7 +347,7 @@ export default function DashboardScreen() {
             </View>
 
             {/* Liabilities Card */}
-            <View style={[styles.carouselCard, { width: carouselItemWidth, backgroundColor: theme.colors.surface, marginHorizontal: 20 }]}>
+            <View style={[styles.carouselCard, { width: carouselItemWidth, backgroundColor: theme.colors.surface, marginLeft: 0, marginRight: 20 }]}>
               <LinearGradient
                 colors={[theme.colors.error + '15', theme.colors.warning + '10', theme.colors.surface]}
                 style={styles.carouselGradient}
@@ -396,7 +397,7 @@ export default function DashboardScreen() {
                 ]}
                 onPress={() => {
                   carouselScrollRef.current?.scrollTo({
-                    x: index * carouselItemWidth,
+                    x: index * (carouselItemWidth + 20),
                     animated: true
                   });
                   setCurrentCarouselIndex(index);
