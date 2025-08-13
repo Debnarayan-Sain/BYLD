@@ -19,6 +19,8 @@ import {
   HelpCircle,
   Wallet,
   CreditCard,
+  Target,
+  BookOpen,
 } from 'lucide-react-native';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -82,6 +84,29 @@ export default function DashboardScreen() {
       items: [
         { id: 'loan', name: 'Loan', icon: Banknote, value: '₹12,75,000', change: '-2.1%', isPositive: true },
       ]
+    },
+    {
+      id: 'goals',
+      title: 'Goals',
+      totalValue: '5 Active',
+      isExpanded: false,
+      items: [
+        { id: 'retirement', name: 'Retirement', icon: Target, value: '₹2,00,00,000', change: '65%', isPositive: true },
+        { id: 'house', name: 'Dream House', icon: HomeIcon, value: '₹1,50,00,000', change: '45%', isPositive: true },
+        { id: 'education', name: 'Child Education', icon: BookOpen, value: '₹50,00,000', change: '78%', isPositive: true },
+        { id: 'vacation', name: 'World Tour', icon: Target, value: '₹10,00,000', change: '32%', isPositive: true },
+        { id: 'emergency', name: 'Emergency Fund', icon: Shield, value: '₹15,00,000', change: '90%', isPositive: true },
+      ]
+    },
+    {
+      id: 'education',
+      title: 'Education',
+      totalValue: '12 Articles',
+      isExpanded: false,
+      items: [
+        { id: 'basics', name: 'Investment Basics', icon: BookOpen, value: '8 Articles', change: 'New', isPositive: true },
+        { id: 'advanced', name: 'Advanced Strategies', icon: TrendingUp, value: '4 Articles', change: 'Updated', isPositive: true },
+      ]
     }
   ]);
   
@@ -118,6 +143,12 @@ export default function DashboardScreen() {
       case 'liabilities':
         router.push('/liabilities');
         break;
+      case 'goals':
+        router.push('/(tabs)/../goals/index' as any);
+        break;
+      case 'education':
+        router.push('/(tabs)/../education/index' as any);
+        break;
       default:
         break;
     }
@@ -131,6 +162,10 @@ export default function DashboardScreen() {
         return Shield;
       case 'liabilities':
         return CreditCard;
+      case 'goals':
+        return Target;
+      case 'education':
+        return BookOpen;
       default:
         return Wallet;
     }
@@ -222,9 +257,65 @@ export default function DashboardScreen() {
           </LinearGradient>
         </View>
 
-        {/* Category Cards Row */}
+        {/* Category Cards Row 1 */}
         <View style={styles.categoryCardsContainer}>
-          {assetCategories.map((category) => {
+          {assetCategories.slice(0, 3).map((category) => {
+            const IconComponent = getCategoryIcon(category.id);
+            const isSelected = false;
+            return (
+              <TouchableOpacity
+                key={category.id}
+                style={[
+                  styles.categoryCard,
+                  {
+                    backgroundColor: isSelected ? theme.colors.primary : theme.colors.surface,
+                    borderColor: isSelected ? theme.colors.primary : theme.colors.border,
+                  }
+                ]}
+                onPress={() => handleCategoryPress(category.id)}
+                testID={`category-card-${category.id}`}
+              >
+                <View style={[
+                  styles.categoryCardIcon,
+                  { backgroundColor: isSelected ? theme.colors.surface : theme.colors.primary + '15' }
+                ]}>
+                  <IconComponent 
+                    size={24} 
+                    color={isSelected ? theme.colors.primary : theme.colors.primary} 
+                  />
+                </View>
+                <Text style={[
+                  styles.categoryCardTitle,
+                  { color: isSelected ? theme.colors.surface : theme.colors.text }
+                ]}>
+                  {category.title}
+                </Text>
+                <Text style={[
+                  styles.categoryCardValue,
+                  { color: isSelected ? theme.colors.surface + 'CC' : theme.colors.textSecondary }
+                ]}>
+                  {category.totalValue}
+                </Text>
+                <View style={[
+                  styles.categoryCardBadge,
+                  { backgroundColor: isSelected ? theme.colors.surface + '20' : theme.colors.primary + '15' }
+                ]}>
+                  <Text style={[
+                    styles.categoryCardBadgeText,
+                    { color: isSelected ? theme.colors.surface : theme.colors.primary }
+                  ]}>
+                    {category.items.length}
+                  </Text>
+                </View>
+
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+
+        {/* Category Cards Row 2 */}
+        <View style={styles.categoryCardsContainer}>
+          {assetCategories.slice(3).map((category) => {
             const IconComponent = getCategoryIcon(category.id);
             const isSelected = false;
             return (
