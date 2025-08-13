@@ -118,19 +118,26 @@ export default function OTPScreen() {
     router.back();
   };
 
+  const isDark = theme.name === 'Dark Professional';
+
   return (
-    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
+    <View style={styles.container}>
       <LinearGradient
-        colors={['#667eea', '#764ba2']}
+        colors={isDark ? 
+          [theme.colors.background, theme.colors.surface, theme.colors.primary + '20'] : 
+          [theme.colors.background, theme.colors.surface, theme.colors.primary + '15']
+        }
         style={styles.backgroundGradient}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
       >
         <SafeAreaView style={styles.safeArea}>
           {/* Header */}
           <View style={styles.header}>
             <TouchableOpacity onPress={handleBack} style={styles.backButton}>
-              <ArrowLeft size={24} color="#ffffff" />
+              <ArrowLeft size={24} color={theme.colors.text} />
             </TouchableOpacity>
-            <Text style={styles.headerTitle}>Verify OTP</Text>
+            <Text style={[styles.headerTitle, { color: theme.colors.text }]}>Verify OTP</Text>
             <View style={styles.placeholder} />
           </View>
 
@@ -170,7 +177,7 @@ export default function OTPScreen() {
               ]}
             >
               {/* Main Card */}
-              <View style={styles.mainCard}>
+              <View style={[styles.mainCard, { backgroundColor: theme.colors.surface }]}>
                 <View style={styles.cardContent}>
                   <Text style={[styles.title, { color: theme.colors.text }]}>
                     Enter Verification Code
@@ -245,7 +252,6 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#ffffff',
   },
   placeholder: {
     width: 40,
@@ -276,7 +282,6 @@ const styles = StyleSheet.create({
   stepLabel: {
     fontSize: 12,
     fontWeight: '500',
-    color: '#ffffff',
   },
   stepConnector: {
     position: 'absolute',
@@ -296,7 +301,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   mainCard: {
-    backgroundColor: '#ffffff',
     borderRadius: 24,
     marginTop: 20,
     shadowColor: '#000',
