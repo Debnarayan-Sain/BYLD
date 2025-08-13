@@ -176,16 +176,27 @@ export default function SignupScreen() {
                     We&apos;ll send you a verification code
                   </Text>
 
-                  <View style={styles.inputContainer}>
-                    <Input
-                      value={mobile}
-                      onChangeText={setMobile}
-                      keyboardType="phone-pad"
-                      placeholder="Enter mobile number"
-                      maxLength={10}
-                      testID="mobile-input"
-                      style={styles.mobileInput}
-                    />
+                  <View style={styles.inputGroup}>
+                    <Text style={[styles.inputLabel, { color: theme.colors.text }]}>Mobile Number</Text>
+                    <View style={[styles.inputContainer, { 
+                      backgroundColor: theme.colors.background,
+                      borderColor: theme.colors.border
+                    }]}>
+                      <View style={[styles.inputIcon, { backgroundColor: theme.colors.primary + '15' }]}>
+                        <Phone size={20} color={theme.colors.primary} />
+                      </View>
+                      <Input
+                        value={mobile}
+                        onChangeText={setMobile}
+                        keyboardType="phone-pad"
+                        placeholder="Enter mobile number"
+                        maxLength={10}
+                        style={[styles.input, { color: theme.colors.text }]}
+                        testID="mobile-input"
+                        placeholderTextColor={theme.colors.textSecondary}
+                        hideContainer={true}
+                      />
+                    </View>
                   </View>
 
                   <Button
@@ -313,12 +324,38 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     opacity: 0.7,
   },
-  inputContainer: {
+  inputGroup: {
     marginBottom: 32,
   },
-  mobileInput: {
+  inputLabel: {
+    fontSize: 14,
+    fontWeight: '600',
+    marginBottom: 8,
+    marginLeft: 4,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: 12,
+    borderWidth: 1,
+    paddingHorizontal: 12,
+    paddingVertical: 2,
+  },
+  inputIcon: {
+    width: 36,
+    height: 36,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 10,
+  },
+  input: {
+    flex: 1,
     fontSize: 16,
     fontWeight: '500',
+    paddingVertical: 12,
+    backgroundColor: 'transparent',
+    borderWidth: 0,
   },
   continueButton: {
     borderRadius: 16,
