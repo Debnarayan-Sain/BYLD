@@ -188,9 +188,6 @@ export default function SplashScreen({ onFinish }: SplashScreenProps) {
             />
           </Animated.View>
           
-          <Text style={[styles.brandText, { color: "#0A338F" }]}>
-            BYLD WEALTH
-          </Text>
           
           <Text style={[styles.tagline, { color: theme.colors.text }]}>
             Portfolio Management
