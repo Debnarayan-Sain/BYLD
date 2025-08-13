@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Animated, StatusBar, Modal, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Animated, StatusBar, Modal, Image, ScrollView, Dimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import { 
@@ -131,6 +131,15 @@ export default function DashboardScreen() {
   const customerName = "9845098450";
   const netWorth = "₹36,20,000";
   const netWorthChange = "+8.5%";
+  const totalAssets = "₹15,45,000";
+  const totalLiabilities = "₹12,75,000";
+  const assetsChange = "+12.3%";
+  const liabilitiesChange = "-2.1%";
+  
+  const [currentCarouselIndex, setCurrentCarouselIndex] = useState<number>(0);
+  const carouselScrollRef = useRef<ScrollView>(null);
+  const { width: screenWidth } = Dimensions.get('window');
+  const carouselItemWidth = screenWidth - 40; // 20px margin on each side
 
   useEffect(() => {
     setGreeting(getTimeBasedGreeting());
@@ -252,39 +261,148 @@ export default function DashboardScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* Net Worth Card */}
-        <View style={[styles.netWorthCard, { backgroundColor: theme.colors.surface }]}>
-          <LinearGradient
-            colors={[theme.colors.primary + '15', theme.colors.secondary + '10', theme.colors.surface]}
-            style={styles.netWorthGradient}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 1 }}
+        {/* Portfolio Carousel */}
+        <View style={styles.carouselContainer}>
+          <ScrollView
+            ref={carouselScrollRef}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            onMomentumScrollEnd={(event) => {
+              const index = Math.round(event.nativeEvent.contentOffset.x / carouselItemWidth);
+              setCurrentCarouselIndex(index);
+            }}
+            contentContainerStyle={styles.carouselContent}
           >
-            <View style={styles.netWorthHeader}>
-              <Text style={[styles.netWorthLabel, { color: theme.colors.textSecondary }]}>
-                {t.dashboard.totalValue}
-              </Text>
-              <View style={[styles.trendIcon, { backgroundColor: theme.colors.success + '20' }]}>
-                <TrendingUp size={16} color={theme.colors.success} />
-              </View>
+            {/* Total Portfolio Card */}
+            <View style={[styles.carouselCard, { width: carouselItemWidth, backgroundColor: theme.colors.surface }]}>
+              <LinearGradient
+                colors={[theme.colors.primary + '15', theme.colors.secondary + '10', theme.colors.surface]}
+                style={styles.carouselGradient}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+              >
+                <View style={styles.carouselHeader}>
+                  <Text style={[styles.carouselLabel, { color: theme.colors.textSecondary }]}>
+                    Total Portfolio Value
+                  </Text>
+                  <View style={[styles.trendIcon, { backgroundColor: theme.colors.success + '20' }]}>
+                    <TrendingUp size={16} color={theme.colors.success} />
+                  </View>
+                </View>
+                <View style={styles.carouselRow}>
+                  <Text style={[styles.carouselValue, { color: theme.colors.text }]}>
+                    {netWorth}
+                  </Text>
+                  <View style={styles.changeContainer}>
+                    <Text style={[styles.carouselChange, { color: theme.colors.success }]}>
+                      {netWorthChange}
+                    </Text>
+                    <Text style={[styles.changeLabel, { color: theme.colors.textSecondary }]}>
+                      This Month
+                    </Text>
+                  </View>
+                </View>
+                <View style={[styles.progressBar, { backgroundColor: theme.colors.border }]}>
+                  <View style={[styles.progressFill, { backgroundColor: theme.colors.primary }]} />
+                </View>
+              </LinearGradient>
             </View>
-            <View style={styles.netWorthRow}>
-              <Text style={[styles.netWorthValue, { color: theme.colors.text }]}>
-                {netWorth}
-              </Text>
-              <View style={styles.changeContainer}>
-                <Text style={[styles.netWorthChange, { color: theme.colors.success }]}>
-                  {netWorthChange}
-                </Text>
-                <Text style={[styles.changeLabel, { color: theme.colors.textSecondary }]}>
-                  This Month
-                </Text>
-              </View>
+
+            {/* Assets Card */}
+            <View style={[styles.carouselCard, { width: carouselItemWidth, backgroundColor: theme.colors.surface }]}>
+              <LinearGradient
+                colors={[theme.colors.success + '15', theme.colors.primary + '10', theme.colors.surface]}
+                style={styles.carouselGradient}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+              >
+                <View style={styles.carouselHeader}>
+                  <Text style={[styles.carouselLabel, { color: theme.colors.textSecondary }]}>
+                    Total Assets
+                  </Text>
+                  <View style={[styles.trendIcon, { backgroundColor: theme.colors.success + '20' }]}>
+                    <Wallet size={16} color={theme.colors.success} />
+                  </View>
+                </View>
+                <View style={styles.carouselRow}>
+                  <Text style={[styles.carouselValue, { color: theme.colors.text }]}>
+                    {totalAssets}
+                  </Text>
+                  <View style={styles.changeContainer}>
+                    <Text style={[styles.carouselChange, { color: theme.colors.success }]}>
+                      {assetsChange}
+                    </Text>
+                    <Text style={[styles.changeLabel, { color: theme.colors.textSecondary }]}>
+                      This Month
+                    </Text>
+                  </View>
+                </View>
+                <View style={[styles.progressBar, { backgroundColor: theme.colors.border }]}>
+                  <View style={[styles.progressFill, { backgroundColor: theme.colors.success, width: '75%' }]} />
+                </View>
+              </LinearGradient>
             </View>
-            <View style={[styles.progressBar, { backgroundColor: theme.colors.border }]}>
-              <View style={[styles.progressFill, { backgroundColor: theme.colors.primary }]} />
+
+            {/* Liabilities Card */}
+            <View style={[styles.carouselCard, { width: carouselItemWidth, backgroundColor: theme.colors.surface }]}>
+              <LinearGradient
+                colors={[theme.colors.error + '15', theme.colors.warning + '10', theme.colors.surface]}
+                style={styles.carouselGradient}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+              >
+                <View style={styles.carouselHeader}>
+                  <Text style={[styles.carouselLabel, { color: theme.colors.textSecondary }]}>
+                    Total Liabilities
+                  </Text>
+                  <View style={[styles.trendIcon, { backgroundColor: theme.colors.error + '20' }]}>
+                    <CreditCard size={16} color={theme.colors.error} />
+                  </View>
+                </View>
+                <View style={styles.carouselRow}>
+                  <Text style={[styles.carouselValue, { color: theme.colors.text }]}>
+                    {totalLiabilities}
+                  </Text>
+                  <View style={styles.changeContainer}>
+                    <Text style={[styles.carouselChange, { color: theme.colors.success }]}>
+                      {liabilitiesChange}
+                    </Text>
+                    <Text style={[styles.changeLabel, { color: theme.colors.textSecondary }]}>
+                      This Month
+                    </Text>
+                  </View>
+                </View>
+                <View style={[styles.progressBar, { backgroundColor: theme.colors.border }]}>
+                  <View style={[styles.progressFill, { backgroundColor: theme.colors.error, width: '45%' }]} />
+                </View>
+              </LinearGradient>
             </View>
-          </LinearGradient>
+          </ScrollView>
+          
+          {/* Carousel Indicators */}
+          <View style={styles.carouselIndicators}>
+            {[0, 1, 2].map((index) => (
+              <TouchableOpacity
+                key={index}
+                style={[
+                  styles.carouselIndicator,
+                  {
+                    backgroundColor: currentCarouselIndex === index 
+                      ? theme.colors.primary 
+                      : theme.colors.border
+                  }
+                ]}
+                onPress={() => {
+                  carouselScrollRef.current?.scrollTo({
+                    x: index * carouselItemWidth,
+                    animated: true
+                  });
+                  setCurrentCarouselIndex(index);
+                }}
+              />
+            ))}
+          </View>
         </View>
 
         {/* Category Cards Row 1 */}
@@ -510,9 +628,14 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
-  netWorthCard: {
-    marginHorizontal: 20,
+  carouselContainer: {
     marginVertical: 16,
+  },
+  carouselContent: {
+    paddingHorizontal: 20,
+  },
+  carouselCard: {
+    marginRight: 0,
     borderRadius: 16,
     overflow: 'hidden',
     elevation: 4,
@@ -521,25 +644,43 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 8,
   },
-  netWorthGradient: {
+  carouselGradient: {
     padding: 20,
   },
-  netWorthLabel: {
+  carouselHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  carouselLabel: {
     fontSize: 14,
     marginBottom: 8,
   },
-  netWorthRow: {
+  carouselRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  netWorthValue: {
+  carouselValue: {
     fontSize: 28,
     fontWeight: 'bold',
   },
-  netWorthChange: {
+  carouselChange: {
     fontSize: 16,
     fontWeight: '600',
+  },
+  carouselIndicators: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 16,
+    gap: 8,
+  },
+  carouselIndicator: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
   },
   categoryCardsContainer: {
     flexDirection: 'row',
@@ -658,12 +799,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#FFFFFF',
   },
-  netWorthHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
+
   trendIcon: {
     width: 32,
     height: 32,
