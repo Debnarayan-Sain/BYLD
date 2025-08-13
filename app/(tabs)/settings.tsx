@@ -1,13 +1,25 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Switch } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Moon, Sun, User, Bell, Shield, HelpCircle, LogOut, ChevronRight, TrendingUp } from 'lucide-react-native';
+import { Moon, Sun, User, Bell, Shield, HelpCircle, LogOut, ChevronRight, TrendingUp, Globe } from 'lucide-react-native';
 import { useTheme } from '@/contexts/ThemeContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { router } from 'expo-router';
 
 export default function SettingsScreen() {
   const { theme, changeTheme, availableThemes } = useTheme();
+  const { language, changeLanguage, availableLanguages } = useLanguage();
   const isDark = theme.name === 'Dark Professional';
+
+  const languageNames: Record<string, string> = {
+    en: 'English',
+    hi: 'हिन्दी (Hindi)',
+    bn: 'বাংলা (Bengali)',
+    ta: 'தமிழ் (Tamil)',
+    te: 'తెలుగు (Telugu)',
+    kn: 'ಕನ್ನಡ (Kannada)',
+    ml: 'മലയാളം (Malayalam)',
+  };
 
   const handleThemeToggle = () => {
     changeTheme(isDark ? 'default' : 'dark');
@@ -84,6 +96,40 @@ export default function SettingsScreen() {
                 testID="theme-toggle"
               />
             </View>
+          </View>
+
+          {/* Language Section */}
+          <View style={[styles.section, { backgroundColor: theme.colors.surface }]}>
+            <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>Language</Text>
+            
+            {availableLanguages.map((langCode, index) => {
+              const isSelected = language === langCode;
+              
+              return (
+                <TouchableOpacity
+                  key={index}
+                  style={[
+                    styles.languageItem,
+                    { borderBottomColor: theme.colors.border },
+                    index === availableLanguages.length - 1 && styles.lastItem,
+                    isSelected && { backgroundColor: theme.colors.primary + '10' }
+                  ]}
+                  onPress={() => changeLanguage(langCode)}
+                >
+                  <View style={styles.languageLeft}>
+                    <View style={[styles.iconContainer, { backgroundColor: theme.colors.primary + '20' }]}>
+                      <Globe size={20} color={theme.colors.primary} />
+                    </View>
+                    <Text style={[styles.languageTitle, { color: theme.colors.text }]}>
+                      {languageNames[langCode] || langCode.toUpperCase()}
+                    </Text>
+                  </View>
+                  {isSelected && (
+                    <View style={[styles.selectedIndicator, { backgroundColor: theme.colors.primary }]} />
+                  )}
+                </TouchableOpacity>
+              );
+            })}
           </View>
 
           {/* General Settings */}
@@ -279,6 +325,23 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
+  },
+  languageItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    borderBottomWidth: 1,
+  },
+  languageLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  languageTitle: {
+    fontSize: 16,
+    fontWeight: '500',
   },
   logoutItem: {
     borderBottomWidth: 0,
