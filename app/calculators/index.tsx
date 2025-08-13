@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Animated } from '
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
-import { ArrowLeft, Calculator, TrendingUp, PiggyBank, CreditCard, Home, Target, GraduationCap, Heart, DollarSign, Banknote, TrendingDown, Building2 } from 'lucide-react-native';
+import { ArrowLeft, Calculator, TrendingUp, PiggyBank, Home, Target, GraduationCap, Heart, DollarSign, Banknote, TrendingDown, Building2 } from 'lucide-react-native';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 
@@ -123,7 +123,7 @@ export default function CalculatorsScreen() {
 
   const handleCalculatorPress = (calculatorId: string) => {
     console.log('Calculator pressed:', calculatorId);
-    router.push(`/calculators/${calculatorId}`);
+    router.push(`/calculators/${calculatorId}` as any);
   };
 
   return (
