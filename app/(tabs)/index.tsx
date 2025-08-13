@@ -205,9 +205,15 @@ export default function DashboardScreen() {
             <Text style={[styles.greeting, { color: theme.colors.textSecondary }]}>
               Good Morning
             </Text>
-            <Text style={[styles.customerName, { color: theme.colors.text }]}>
-              {customerName}
-            </Text>
+            <View style={styles.customerNameContainer}>
+              <Image 
+                source={{ uri: 'https://r2-pub.rork.com/attachments/nrgogdoos0pa3ykw0qh3t' }}
+                style={styles.logoIcon}
+              />
+              <Text style={[styles.customerName, { color: theme.colors.text }]}>
+                {customerName}
+              </Text>
+            </View>
           </View>
           <TouchableOpacity 
             style={[styles.profileButton, { backgroundColor: theme.colors.surface }]}
@@ -450,6 +456,16 @@ const styles = StyleSheet.create({
   },
   headerLeft: {
     flex: 1,
+  },
+  customerNameContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  logoIcon: {
+    width: 24,
+    height: 24,
+    resizeMode: 'contain',
   },
   customerName: {
     fontSize: 20,
