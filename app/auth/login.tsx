@@ -498,7 +498,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginBottom: 16,
     width: '100%',
-    maxWidth: 400,
+    maxWidth: 300,
     overflow: 'hidden',
   },
   calculatorGradient: {
