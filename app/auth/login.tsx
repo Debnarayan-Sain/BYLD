@@ -493,7 +493,6 @@ const styles = StyleSheet.create({
     paddingTop: 16,
     paddingBottom: 20,
     alignItems: 'center',
-    width:'100%'
   },
   calculatorButton: {
     borderRadius: 20,
