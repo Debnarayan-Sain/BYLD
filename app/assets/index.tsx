@@ -32,7 +32,6 @@ export default function AssetsScreen() {
 
   const assetItems: AssetItem[] = [
     { id: 'bank', name: t.assets.bankAccounts, icon: Banknote, value: '₹2,50,000', change: '+2.5%', isPositive: true },
-    { id: 'deposits', name: 'Deposits', icon: PiggyBank, value: '₹5,00,000', change: '+4.2%', isPositive: true },
     { id: 'mutual_funds', name: t.assets.mutualFunds, icon: TrendingUp, value: '₹3,25,000', change: '+12.8%', isPositive: true },
     { id: 'equity', name: t.assets.stocks, icon: BarChart3, value: '₹2,15,000', change: '-3.2%', isPositive: false },
     { id: 'pms', name: 'PMS', icon: Briefcase, value: '₹1,50,000', change: '+8.5%', isPositive: true },
